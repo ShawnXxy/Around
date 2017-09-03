@@ -9,6 +9,9 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity implements EventFragment.OnItemSelectListener, CommentFragment.OnItemSelectListener {
     private EventFragment mListFragment;
     private CommentFragment mGridFragment;
@@ -19,21 +22,26 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
         setContentView(R.layout.activity_main);
         Log.e("Life cycle test", "We are at onCreate()"); // TEST in log
 
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
+
         // Show different fragments based on screen size.
 //        if (findViewById(R.id.fragment_container) != null) {
 //            Fragment fragment = isTablet() ? new CommentFragment() : new EventFragment();
 //            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
 //        }
 
-        //add list view
-        mListFragment = new EventFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.event_container, mListFragment).commit();
-
-        //add Gridview
-        if (isTablet()) {
-            mGridFragment = new CommentFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
-        }
+//        //add list view
+//        mListFragment = new EventFragment();
+//        getSupportFragmentManager().beginTransaction().add(R.id.event_container, mListFragment).commit();
+//
+//        //add Gridview
+//        if (isTablet()) {
+//            mGridFragment = new CommentFragment();
+//            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
+//        }
 
         /**
          *  Below section is not needed for Fragment
@@ -53,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
 //                R.id.event_name,
 //                getEventNames()
 //        );
+
     } // END OF onCreate()
 
     /**
