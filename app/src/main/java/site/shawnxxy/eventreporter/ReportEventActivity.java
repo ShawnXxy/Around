@@ -1,15 +1,27 @@
 package site.shawnxxy.eventreporter;
 
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReportEventActivity extends AppCompatActivity {
     private static final String TAG = ReportEventActivity.class.getSimpleName();
@@ -19,6 +31,10 @@ public class ReportEventActivity extends AppCompatActivity {
     private ImageView mImageViewSend;
     private ImageView mImageViewCamera;
     private DatabaseReference database;
+    private LocationTracker mLocationTracker;
+    private Activity mActivity;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +54,67 @@ public class ReportEventActivity extends AppCompatActivity {
                 String key = uploadEvent();
             }
         });
+
+        //auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+        mAuth.signInAnonymously().addOnCompleteListener(this,  new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "signInAnonymously", task.getException());
+                }
+            }
+        });
+
+        // check if GPS enabled
+        mActivity = this;
+        mLocationTracker = new LocationTracker(mActivity);
+        mLocationTracker.getLocation();
+        final double latitude = mLocationTracker.getLatitude();
+        final double longitude = mLocationTracker.getLongitude();
+        Log.i("dddddddd", latitude + ":" + longitude);
+        new AsyncTask<Void, Void, Void>() {
+            private List<String> mAddressList = new ArrayList<>();
+            @Override
+            protected Void doInBackground(Void... urls) {
+                mAddressList = mLocationTracker.getCurrentLocationViaJSON(latitude,longitude);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void input) {
+                if (mAddressList.size() >= 3) {
+                    mEditTextLocation.setText(mAddressList.get(0) + ", " + mAddressList.get(1) + ", " + mAddressList.get(2) + ", " + mAddressList.get(3));
+                }
+            }
+        }.execute();
+
+    } // END of onCreate()
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     private String uploadEvent() {
