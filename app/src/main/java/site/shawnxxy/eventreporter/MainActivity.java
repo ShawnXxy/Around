@@ -1,16 +1,15 @@
 package site.shawnxxy.eventreporter;
 
 //import android.app.Fragment;
+
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -78,12 +77,11 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                     }
                 });
             }
-        });
+        }); // END of setOnClickListener()
 
         /**
          *  Implements login click event
          */
-
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +91,10 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
-                            Log.i( " Your log", "You successfully login");
+                            Log.i( "Your log", "You successfully login");
+                            Intent myIntent = new Intent(MainActivity.this, EventActivity.class);
+                            Utils.username = username;
+                            startActivity(myIntent);
                         } else {
                             Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
                         }
