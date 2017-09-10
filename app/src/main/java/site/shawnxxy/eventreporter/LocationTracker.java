@@ -161,7 +161,7 @@ public class LocationTracker implements LocationListener{
      *  Transform coordinates into accurate address
      */
     public static JSONObject getLocationInfo(double lat, double lng) {
-        HttpGet httpGet = new   HttpGet("http://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat+","+lng +"&sensor=true");
+        HttpGet httpGet = new HttpGet("http://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat+","+lng +"&sensor=true");
         HttpClient client = new DefaultHttpClient();
         HttpResponse response;
         StringBuilder stringBuilder = new StringBuilder();
