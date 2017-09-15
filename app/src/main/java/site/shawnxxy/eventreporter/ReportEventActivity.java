@@ -49,6 +49,7 @@ public class ReportEventActivity extends AppCompatActivity {
     // upload pictures
     private FirebaseStorage storage;
     private StorageReference storageRef;
+    private ImageView mImageViewLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ReportEventActivity extends AppCompatActivity {
         mImageViewSend = (ImageView) findViewById(R.id.img_event_report);
         database = FirebaseDatabase.getInstance().getReference();
         img_event_picture = (ImageView) findViewById(R.id.img_event_picture_capture); // add image preview
+        mImageViewLocation = (ImageView) findViewById(R.id.img_event_location);
         // upload picture
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
@@ -108,21 +110,27 @@ public class ReportEventActivity extends AppCompatActivity {
         final double latitude = mLocationTracker.getLatitude();
         final double longitude = mLocationTracker.getLongitude();
         Log.i("dddddddd", latitude + ":" + longitude); // TEST
-        new AsyncTask<Void, Void, Void>() {
-            private List<String> mAddressList = new ArrayList<>();
+        mImageViewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected Void doInBackground(Void... urls) {
-                mAddressList = mLocationTracker.getCurrentLocationViaJSON(latitude,longitude);
-                return null;
-            }
+            public void onClick(View view) {
+                new AsyncTask<Void, Void, Void>() {
+                    private List<String> mAddressList = new ArrayList<>();
+                    @Override
+                    protected Void doInBackground(Void... urls) {
+                        mAddressList = mLocationTracker.getCurrentLocationViaJSON(latitude,longitude);
+                        return null;
+                    }
 
-            @Override
-            protected void onPostExecute(Void input) {
-                if (mAddressList.size() >= 3) {
-                    mEditTextLocation.setText(mAddressList.get(0) + ", " + mAddressList.get(1) + ", " + mAddressList.get(2) + ", " + mAddressList.get(3));
-                }
+                    @Override
+                    protected void onPostExecute(Void input) {
+                        if (mAddressList.size() >= 3) {
+                            mEditTextLocation.setText(mAddressList.get(0) + ", " + mAddressList.get(1) + ", " + mAddressList.get(2) + ", " + mAddressList.get(3));
+                        }
+                    }
+                }.execute();
             }
-        }.execute();
+        });
+
 
         // image preview
         mImageViewCamera.setOnClickListener(new View.OnClickListener() {

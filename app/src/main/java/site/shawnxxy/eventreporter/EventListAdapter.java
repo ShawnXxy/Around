@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,13 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //        eventList = events;
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        // make new events shown on the top
+        Collections.sort(events, new Comparator<Event>() {
+            @Override
+            public int compare(Event a, Event b) {
+                return (int) (b.getTime() - a.getTime());
+            }
+        });
         eventList = new ArrayList<Event>();
         int count = 0;
         for (int i = 0; i < events.size(); i++) {
