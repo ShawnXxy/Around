@@ -12,8 +12,11 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +76,13 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView description;
         public TextView time;
         public ImageView imgview;
-        public View layout;
+        //
+        public ImageView img_view_good;
+        public ImageView img_view_comment;
+        public TextView good_number;
+        public TextView comment_number;
 
+        public View layout;
         public ViewHolder(View v) {
             super(v);
             layout = v;
@@ -83,6 +91,11 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             description = (TextView) v.findViewById(R.id.event_item_description);
             time = (TextView) v.findViewById(R.id.event_item_time);
             imgview = (ImageView) v.findViewById(R.id.event_item_img);
+
+            img_view_good = (ImageView) v.findViewById(R.id.event_good_img);
+            img_view_comment = (ImageView) v.findViewById(R.id.event_comment_img);
+            good_number = (TextView) v.findViewById(R.id.event_good_number);
+            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
         }
     }
     public class ViewHolderAds extends RecyclerView.ViewHolder {
@@ -108,31 +121,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 configureAdsView(viewHolderAds, position);
                 break;
         }
-
-//        final Event event = eventList.get(position);
-//        holder.title.setText(event.getTitle());
-//        String[] locations = event.getAddress().split(",");
-//        holder.location.setText(locations[1] + "," + locations[2]);
-//        holder.description.setText(event.getDescription());
-//        holder.time.setText(Utils.timeTransformer(event.getTime()));
-//
-//        if (event.getImgUri() != null) {
-//            final String url = event.getImgUri();
-//            holder.imgview.setVisibility(View.VISIBLE);
-//            new AsyncTask<Void, Void, Bitmap>(){
-//                @Override
-//                protected Bitmap doInBackground(Void... params) {
-//                    return Utils.getBitmapFromURL(url);
-//                }
-//
-//                @Override
-//                protected void onPostExecute(Bitmap bitmap) {
-//                    holder.imgview.setImageBitmap(bitmap);
-//                }
-//            }.execute();
-//        } else {
-//            holder.imgview.setVisibility(View.GONE);
-//        }
     } // End of onBindVieHolder()
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -188,6 +176,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.description.setText(event.getDescription());
         holder.time.setText(Utils.timeTransformer(event.getTime()));
 
+        holder.good_number.setText(String.valueOf(event.getLike()));
 
         if (event.getImgUri() != null) {
             final String url = event.getImgUri();
@@ -206,6 +195,33 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             holder.imgview.setVisibility(View.GONE);
         }
+
+        // Add click event listener to corresponding
+        holder.img_view_good.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Event recordedevent = snapshot.getValue(Event.class);
+                            if (recordedevent.getId().equals(event.getId())) {
+                                int number = recordedevent.getLike();
+                                holder.good_number.setText(String.valueOf(number + 1));
+                                snapshot.getRef().child("like").setValue(number + 1);
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     private void configureAdsView(final ViewHolderAds adsHolder, final int position) {
