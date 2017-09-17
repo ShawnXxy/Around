@@ -1,6 +1,7 @@
 package site.shawnxxy.eventreporter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -230,6 +231,18 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 });
             }
         });
+        /**
+         *  Comments Activity Intent
+         */
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CommentActivity.class);
+                String eventId = event.getId();
+                intent.putExtra("EventID", eventId);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -251,5 +264,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         adCardView.addView(adView);
     }
+
+
 
 }
