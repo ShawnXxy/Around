@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.fragments;
 
 
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import site.shawnxxy.eventreporter.adapter.EventAdapter;
+import site.shawnxxy.eventreporter.R;
 
 //import android.app.Fragment;
 

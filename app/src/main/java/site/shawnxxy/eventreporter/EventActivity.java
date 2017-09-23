@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import site.shawnxxy.eventreporter.fragments.EventsFragment;
+
 public class EventActivity extends AppCompatActivity {
 
     private Fragment mEventsFragment;

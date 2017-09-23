@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import site.shawnxxy.eventreporter.Comment;
+import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.Utils;
 
 import static site.shawnxxy.eventreporter.Utils.timeTransformer;
 

@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import site.shawnxxy.eventreporter.DataService;
+import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.R;
 
 /**
  * Created by ShawnX on 8/27/17.

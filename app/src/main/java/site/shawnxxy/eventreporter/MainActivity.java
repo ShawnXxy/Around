@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import site.shawnxxy.eventreporter.fragments.CommentFragment;
+import site.shawnxxy.eventreporter.fragments.EventFragment;
+
 public class MainActivity extends AppCompatActivity implements EventFragment.OnItemSelectListener, CommentFragment.OnItemSelectListener {
 
     // to show multiple fragments in one activity
@@ -69,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username)) {
+                        if (username == "" || password == "") {
+                            Toast.makeText(getBaseContext(), "Please put in valid username or password.", Toast.LENGTH_SHORT).show();
+                        } else if (dataSnapshot.hasChild(username)) {
                             Toast.makeText(getBaseContext(),"username is already registered, please change one", Toast.LENGTH_SHORT).show();
                         } else if (!username.equals("") && !password.equals("")){
                             // put username as key to set value

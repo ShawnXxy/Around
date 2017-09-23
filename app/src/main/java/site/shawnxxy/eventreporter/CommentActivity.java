@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import site.shawnxxy.eventreporter.adapter.CommentAdapter;
+
 public class CommentActivity extends AppCompatActivity {
 
     /**
@@ -55,7 +57,9 @@ public class CommentActivity extends AppCompatActivity {
                 sendComment(eventId);
                 mEditTextComment.setText("");
                 getData(eventId, commentAdapter);
-
+                // Go back to Comment view when finish posting
+//                Intent intent = new Intent(this, Comment.class);
+//                startActivity(intent);
             }
         });
         getData(eventId, commentAdapter); // getData<> defined below

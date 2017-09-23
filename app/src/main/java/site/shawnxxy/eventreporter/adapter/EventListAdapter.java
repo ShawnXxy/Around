@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +25,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import site.shawnxxy.eventreporter.CommentActivity;
+import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.Utils;
 
 /**
  * Created by ShawnX on 9/10/17.

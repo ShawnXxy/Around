@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="site.shawnxxy.eventreporter.CommentFragment">
+    tools:context="site.shawnxxy.eventreporter.fragments.CommentFragment">
 
     <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
     <!--<TextView-->

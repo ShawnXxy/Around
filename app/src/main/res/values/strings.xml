@@ -10,6 +10,11 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
 
+    <!--for user interface-->
+    <string name="eventlist">Around</string>
+    <string name="new_events">Report</string>
+    <string name="comment">Comments</string>
+
     <!--admod-->
     <!--For business use, you can create ad unit id by link-->
     <!--https://support.google.com/admob/answer/3052638-->
