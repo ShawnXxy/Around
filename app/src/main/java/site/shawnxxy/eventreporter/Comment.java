@@ -12,6 +12,7 @@ public class Comment {
     private String description;
     private long time;
     private int good;
+    private int repost;
 
     public String getEventId() {
         return eventId;
@@ -59,6 +60,14 @@ public class Comment {
 
     public void setCommentId(String commentId) {
         this.commentId = commentId;
+    }
+
+    public int getRepost() {
+        return repost;
+    }
+
+    public void setRepost(int repost) {
+        this.repost = repost;
     }
 
 }

@@ -4,6 +4,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--for login-->
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
     <!--admod-->
     <!--For business use, you can create ad unit id by link-->
     <!--https://support.google.com/admob/answer/3052638-->

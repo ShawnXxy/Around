@@ -26,6 +26,7 @@ import static site.shawnxxy.eventreporter.Utils.timeTransformer;
  */
 
 public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private Context context;
     private final static int TYPE_EVENT = 0;
     private final static int TYPE_COMMENT = 1;
@@ -35,7 +36,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private DatabaseReference databaseReference;
     private LayoutInflater inflater;
-
 
     public CommentAdapter(Context context) {
         this.context = context;
@@ -71,9 +71,11 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public ImageView eventImgView;
         public ImageView eventImgViewGood;
         public ImageView eventImgViewComment;
+        public ImageView eventImgViewRepost;
 
         public TextView eventLikeNumber;
         public TextView eventCommentNumber;
+        public TextView eventRepostNumber;
         public View layout;
 
         public EventViewHolder(View v) {
@@ -87,18 +89,21 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             eventImgView = (ImageView) v.findViewById(R.id.comment_main_image);
             eventImgViewGood = (ImageView) v.findViewById(R.id.comment_main_like_img);
             eventImgViewComment = (ImageView) v.findViewById(R.id.comment_main_comment_img);
+            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
             eventLikeNumber = (TextView) v.findViewById(R.id.comment_main_like_number);
             eventCommentNumber = (TextView) v.findViewById(R.id.comment_main_comment_number);
+            eventRepostNumber = (TextView) v.findViewById(R.id.comment_main_repost_number);
         }
     } // End
 
+    /**
+     *  create another holder that holds comment item
+     */
     public class CommentViewHolder extends RecyclerView.ViewHolder {
         public TextView commentUser;
         public TextView commentTime;
         public TextView commentDescription;
-
         public View layout;
-
         public CommentViewHolder(View v) {
             super(v);
             layout = v;
@@ -108,6 +113,12 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    /**
+     *  create a view for holders
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
@@ -126,6 +137,11 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return viewHolder;
     }
 
+    /**
+     *   shows view in recycler view
+     * @param holder
+     * @param position
+     */
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
@@ -157,6 +173,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.eventTime.setText(timeTransformer(event.getTime()));
         holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
         holder.eventLikeNumber.setText(String.valueOf(event.getLike()));
+        holder.eventRepostNumber.setText(String.valueOf(event.getRepostNumber()));
 
         if (event.getImgUri() != null) {
             final String url = event.getImgUri();
@@ -166,7 +183,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 protected Bitmap doInBackground(Void... params) {
                     return Utils.getBitmapFromURL(url);
                 }
-
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
                     holder.eventImgView.setImageBitmap(bitmap);
@@ -175,7 +191,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             holder.eventImgView.setVisibility(View.GONE);
         }
-
 
         holder.eventImgViewGood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,10 +208,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }

@@ -16,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ShawnX on 9/3/17.
- *
- *      Add utils to encrypt password
  */
 
 public class Utils {
@@ -51,7 +49,6 @@ public class Utils {
     // image helper function that helps get image from cloud storage
     public static Bitmap getBitmapFromURL(String imageUrl) {
         Bitmap bitmap = null;
-
         if (bitmap == null) {
             try {
                 URL url = new URL(imageUrl);
@@ -68,8 +65,10 @@ public class Utils {
         return bitmap;
     }
 
+    /**
+     *  To encrypt password
+     */
     public static String username= null;
-
     public  static String md5Encryption(final String input){
         String result = "";
         try{

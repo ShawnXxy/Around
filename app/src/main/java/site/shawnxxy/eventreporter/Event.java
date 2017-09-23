@@ -16,8 +16,11 @@ public class Event {
     private long time;
     private String username;
     private String imgUri;
-    private int CommentNumber;
-    public Event() {}
+    private int commentNumber;
+    private int repostNumber;
+    public Event() {
+
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -72,13 +75,20 @@ public class Event {
     }
 
     public int getCommentNumber() {
-        return CommentNumber;
+        return commentNumber;
+    }
+
+    public int getRepostNumber() {
+        return repostNumber;
+    }
+
+    public void setRepostNumber(int repostNumber) {
+        this.repostNumber = repostNumber;
     }
 
     public void setCommentNumber(int commentNumber) {
-        CommentNumber = commentNumber;
+        commentNumber = commentNumber;
     }
-
 
     /**
      * Constructor

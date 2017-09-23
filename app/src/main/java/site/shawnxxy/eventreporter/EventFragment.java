@@ -19,14 +19,18 @@ import android.widget.ListView;
  */
 public class EventFragment extends Fragment {
 
-    ListView listView;
-    OnItemSelectListener mCallback;
+    public EventFragment() {
+        // Required empty public constructor
+    }
 
+    /**
+     *  Let MainActivity be able to communicate with CommentFragment
+     */
+    OnItemSelectListener mCallback;
     // Container Activity must implement this interface
     public interface OnItemSelectListener {
         public void onItemSelected(int position);
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,27 +41,22 @@ public class EventFragment extends Fragment {
         }
     }
 
-    public EventFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_event, container, false);
-
         View view = inflater.inflate(R.layout.fragment_event, container, false);
         ListView listView = (ListView) view.findViewById(R.id.event_list);
-//        listView.setAdapter(new EventAdapter(getActivity())); // No need for applying multiple fragments
+//        listView.setAdapter(new EventAdapter(getActivity())); // Comment this off if operating multiple fragments
+        // For multiple fragments in one activity
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 getEventNames()
         );
-
         //Assign adapter to ListView
         listView.setAdapter(adapter);
+        // Add click listener in listfragment to let MainActivity be able to communicate with CommentFragment
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -77,7 +76,10 @@ public class EventFragment extends Fragment {
         return names;
     }
 
-
+    /**
+     *  communicate back from GridView to ListView
+     */
+    ListView listView;
     public void onItemSelected(int position){
         for (int i = 0; i < listView.getChildCount(); i++){
             if (position == i) {

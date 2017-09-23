@@ -15,6 +15,7 @@ import java.util.List;
  */
 
 public class EventAdapter extends BaseAdapter {
+
     Context context;
     List<Event> eventData;
 
@@ -49,10 +50,13 @@ public class EventAdapter extends BaseAdapter {
         TextView eventAddress = (TextView) convertView.findViewById(R.id.event_address);
         TextView eventDescription = (TextView) convertView.findViewById(R.id.event_description);
 //        ImageView eventImage = (ImageView) convertView.findViewById(R.id.event_thumbnail);
-        Event r = eventData.get(position);
-        eventTitle.setText(r.getTitle());
-        eventAddress.setText(r.getAddress());
-        eventDescription.setText(r.getDescription());
+        Event event = eventData.get(position);
+        eventTitle.setText(event.getTitle());
+        eventAddress.setText(event.getAddress());
+        eventDescription.setText(event.getDescription());
+
+        // Communicate back from GridView to ListView
+        ImageView eventImage = (ImageView) convertView.findViewById(R.id.event_thumbnail);
         //match iamges with different title
 //        if (position < 2) {
 //            eventImage.setImageDrawable(context.getDrawable(R.drawable.event_thumbnail));
@@ -63,7 +67,6 @@ public class EventAdapter extends BaseAdapter {
 //        } else {
 //            eventImage.setImageDrawable(context.getDrawable(R.drawable.pear));
 //        }
-
         return convertView;
     }
 

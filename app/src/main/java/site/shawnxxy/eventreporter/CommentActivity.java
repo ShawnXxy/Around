@@ -21,6 +21,9 @@ import java.util.List;
 
 public class CommentActivity extends AppCompatActivity {
 
+    /**
+     *  attach recycler view to corresponding activity
+     */
     private DatabaseReference mDatabaseReference;
     private RecyclerView mRecyclerView;
     private EditText mEditTextComment;
@@ -45,6 +48,7 @@ public class CommentActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        // Add Button click event
         mCommentSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +58,7 @@ public class CommentActivity extends AppCompatActivity {
 
             }
         });
-
-        getData(eventId, commentAdapter);
+        getData(eventId, commentAdapter); // getData<> defined below
     }
 
     private void getData(final String eventId, final CommentAdapter commentAdapter) {
@@ -63,7 +66,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DataSnapshot commentSnapshot = dataSnapshot.child("comments");
-                List<Comment> comments = new ArrayList<Comment>();
+                List<Comment> comments = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : commentSnapshot.getChildren()) {
                     Comment comment = noteDataSnapshot.getValue(Comment.class);
                     if(comment.getEventId().equals(eventId)) {
@@ -73,7 +76,6 @@ public class CommentActivity extends AppCompatActivity {
                 mDatabaseReference.getRef().child("events").child(eventId).
                         child("commentNumber").setValue(comments.size());
                 commentAdapter.setComments(comments);
-
 
                 DataSnapshot eventSnapshot = dataSnapshot.child("events");
                 for (DataSnapshot noteDataSnapshot : eventSnapshot.getChildren()) {
@@ -89,14 +91,16 @@ public class CommentActivity extends AppCompatActivity {
                     mRecyclerView.setAdapter(commentAdapter);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
+    /**
+     *  Add Button click event
+     * @param eventId
+     */
     private void sendComment(final String eventId) {
         String description = mEditTextComment.getText().toString();
         if (description.equals("")) {
@@ -109,8 +113,7 @@ public class CommentActivity extends AppCompatActivity {
         comment.setTime(System.currentTimeMillis());
         String key = mDatabaseReference.child("comments").push().getKey();
         comment.setCommentId(key);
-        mDatabaseReference.child("comments").child(key).setValue(comment, new DatabaseReference.
-                CompletionListener() {
+        mDatabaseReference.child("comments").child(key).setValue(comment, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
@@ -119,7 +122,7 @@ public class CommentActivity extends AppCompatActivity {
                     toast.show();
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "The comment is reported", Toast.LENGTH_SHORT);
+                            "The comment is posted!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

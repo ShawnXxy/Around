@@ -33,19 +33,24 @@ import java.util.Map;
 //public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder>{
 public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Event> eventList;
-    // CardView admob
+    //  admob CardView
     private Context context;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_ADS = 1;
     private AdLoader.Builder builder;
     private LayoutInflater inflater;
     private DatabaseReference databaseReference;
-    private Map<Integer, NativeExpressAdView> map = new HashMap<Integer, NativeExpressAdView>();
+    private Map<Integer, NativeExpressAdView> map = new HashMap<>();
 
-    //constructor
+    /**
+     *
+     *  Implement cardview for admob
+     * @param events
+     * @param context
+     */
+    // constructor
     public EventListAdapter(List<Event> events, final Context context) {
 //        eventList = events;
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
         // make new events shown on the top
         Collections.sort(events, new Comparator<Event>() {
@@ -54,10 +59,11 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return (int) (b.getTime() - a.getTime());
             }
         });
-        eventList = new ArrayList<Event>();
+        eventList = new ArrayList<>();
         int count = 0;
+        // admob frequencies
         for (int i = 0; i < events.size(); i++) {
-            if (i % 2 == 1) {
+            if (i % 5 == 1) {
                 //Use a set to record advertisement position
                 map.put(i + count, new NativeExpressAdView(context));
                 count++;
@@ -65,47 +71,53 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             eventList.add(events.get(i));
         }
-
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
     }
-
     public Map<Integer, NativeExpressAdView> getMap() {
         return map;
     }
-
     public List<Event> getEventList() {
         return eventList;
     }
 
-    //Compare this to view holder against ListView adapter
+    /**
+     *  to show different views in recycler view
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        // Views for event content
         public TextView title;
         public TextView location;
         public TextView description;
         public TextView time;
         public ImageView imgview;
-        //
+        // Extra views for Like and Comments and Repost
         public ImageView img_view_good;
         public ImageView img_view_comment;
+        public ImageView img_view_repost;
         public TextView good_number;
         public TextView comment_number;
+        public TextView repost_number;
 
         public View layout;
         public ViewHolder(View v) {
             super(v);
             layout = v;
+            // Views for event content
             title = (TextView) v.findViewById(R.id.event_item_title);
             location = (TextView) v.findViewById(R.id.event_item_location);
             description = (TextView) v.findViewById(R.id.event_item_description);
             time = (TextView) v.findViewById(R.id.event_item_time);
             imgview = (ImageView) v.findViewById(R.id.event_item_img);
-
+            // Extra views for Like and Comments and Repost
             img_view_good = (ImageView) v.findViewById(R.id.event_good_img);
             img_view_comment = (ImageView) v.findViewById(R.id.event_comment_img);
+            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
             good_number = (TextView) v.findViewById(R.id.event_good_number);
             comment_number = (TextView) v.findViewById(R.id.event_comment_number);
+            repost_number = (TextView) v.findViewById(R.id.event_repost_number);
         }
     }
     public class ViewHolderAds extends RecyclerView.ViewHolder {
@@ -117,39 +129,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         return map.containsKey(position) ? TYPE_ADS : TYPE_ITEM;
     }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        switch (holder.getItemViewType()) {
-            case TYPE_ITEM:
-                ViewHolder viewHolderItem = (ViewHolder) holder;
-                configureItemView(viewHolderItem, position);
-                break;
-            case TYPE_ADS:
-                ViewHolderAds viewHolderAds = (ViewHolderAds) holder;
-                configureAdsView(viewHolderAds, position);
-                break;
-        }
-    } // End of onBindVieHolder()
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return eventList.size();
-    }
-
-    // Return the view back to listview
-    public void add(int position, Event event) {
-        eventList.add(position, event);
-        notifyItemInserted(position);
-    }
-
-    public void remove(int position) {
-        eventList.remove(position);
-        notifyItemRemoved(position);
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
@@ -169,15 +148,11 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return viewHolder;
     }
 
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        LayoutInflater inflater = LayoutInflater.from(
-//                parent.getContext());
-//        View v = inflater.inflate(R.layout.event_list_item, parent, false);
-//        ViewHolder vh = new ViewHolder(v);
-//        return vh;
-//    }
-
+    /**
+     *  showing row views differently in recyclerview
+     * @param holder
+     * @param position
+     */
     private void configureItemView(final ViewHolder holder, final int position) {
         final Event event = eventList.get(position);
         holder.title.setText(event.getTitle());
@@ -185,7 +160,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.location.setText(locations[1] + "," + locations[2]);
         holder.description.setText(event.getDescription());
         holder.time.setText(Utils.timeTransformer(event.getTime()));
-
+        // Get Like number and set the number to the textview
         holder.good_number.setText(String.valueOf(event.getLike()));
 
         if (event.getImgUri() != null) {
@@ -196,7 +171,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 protected Bitmap doInBackground(Void... params) {
                     return Utils.getBitmapFromURL(url);
                 }
-
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
                     holder.imgview.setImageBitmap(bitmap);
@@ -205,7 +179,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             holder.imgview.setVisibility(View.GONE);
         }
-
         // Add click event listener to corresponding
         holder.img_view_good.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,10 +196,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
@@ -243,12 +214,13 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 context.startActivity(intent);
             }
         });
+        /**
+         *  Repost Activity Intent
+         */
 
-    }
-
+    } // End of configureItemView()
     private void configureAdsView(final ViewHolderAds adsHolder, final int position) {
-        ViewHolderAds nativeExpressHolder =
-                (ViewHolderAds) adsHolder;
+        ViewHolderAds nativeExpressHolder = (ViewHolderAds) adsHolder;
         if (!map.containsKey(position)) {
             return;
         }
@@ -265,6 +237,69 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         adCardView.addView(adView);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        switch (holder.getItemViewType()) {
+            case TYPE_ITEM:
+                ViewHolder viewHolderItem = (ViewHolder) holder;
+                configureItemView(viewHolderItem, position);
+                break;
+            case TYPE_ADS:
+                ViewHolderAds viewHolderAds = (ViewHolderAds) holder;
+                configureAdsView(viewHolderAds, position);
+                break;
+        }
+//        final Event event = eventList.get(position);
+//        holder.title.setText(event.getTitle());
+//        String[] locations = event.getAddress().split(",");
+//        holder.location.setText(locations[1] + "," + locations[2]);
+//        holder.description.setText(event.getDescription());
+//        holder.time.setText(Utils.timeTransformer(event.getTime()));
+//
+//        if (event.getImgUri() != null) {
+//            final String url = event.getImgUri();
+//            holder.imgview.setVisibility(View.VISIBLE);
+//            new AsyncTask<Void, Void, Bitmap>(){
+//                @Override
+//                protected Bitmap doInBackground(Void... params) {
+//                    return Utils.getBitmapFromURL(url);
+//                }
+//                @Override
+//                protected void onPostExecute(Bitmap bitmap) {
+//                    holder.imgview.setImageBitmap(bitmap);
+//                }
+//            }.execute();
+//        } else {
+//            holder.imgview.setVisibility(View.GONE);
+//        }
+    } // End of onBindVieHolder()
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return eventList.size();
+    }
 
+    /**
+     *  Return the view back to listview
+     * @param position
+     * @param event
+     */
+    public void add(int position, Event event) {
+        eventList.add(position, event);
+        notifyItemInserted(position);
+    }
+    public void remove(int position) {
+        eventList.remove(position);
+        notifyItemRemoved(position);
+    }
+//    @Override
+//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        LayoutInflater inflater = LayoutInflater.from(
+//                parent.getContext());
+//        View v = inflater.inflate(R.layout.event_list_item, parent, false);
+//        ViewHolder vh = new ViewHolder(v);
+//        return vh;
+//    }
 
-}
+} // END

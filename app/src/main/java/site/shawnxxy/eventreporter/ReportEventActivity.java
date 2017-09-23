@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportEventActivity extends AppCompatActivity {
+
+    /**
+     *  To gather user information and push to firebase database, create and initialize UI widgets
+     */
     private static final String TAG = ReportEventActivity.class.getSimpleName();
     private EditText mEditTextLocation;
     private EditText mEditTextTitle;
@@ -38,15 +42,17 @@ public class ReportEventActivity extends AppCompatActivity {
     private ImageView mImageViewSend;
     private ImageView mImageViewCamera;
     private DatabaseReference database;
-    private LocationTracker mLocationTracker;
-    private Activity mActivity;
+    // Add Firebase Authentification
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    // track location
+    private LocationTracker mLocationTracker;
+    private Activity mActivity;
     // Add image preview
     private static int RESULT_LOAD_IMAGE = 1;
     private ImageView img_event_picture;
     private Uri mImgUri;
-    // upload pictures
+    // Upload connected pictures to Firebase Storage
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ImageView mImageViewLocation;
@@ -62,17 +68,11 @@ public class ReportEventActivity extends AppCompatActivity {
         mImageViewCamera = (ImageView) findViewById(R.id.img_event_camera);
         mImageViewSend = (ImageView) findViewById(R.id.img_event_report);
         database = FirebaseDatabase.getInstance().getReference();
-        img_event_picture = (ImageView) findViewById(R.id.img_event_picture_capture); // add image preview
-        mImageViewLocation = (ImageView) findViewById(R.id.img_event_location);
-        // upload picture
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
-
-        // upload pictures
+        // Add click event to camera icon, trigger event to choose pictures
         mImageViewSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String key = uploadEvent();
+                String key = uploadEvent(); // function defined in below
                 if (mImgUri != null) {
                     uploadImage(key);
                     mImgUri = null;
@@ -80,6 +80,18 @@ public class ReportEventActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         *  Add image preview
+         */
+        img_event_picture = (ImageView) findViewById(R.id.img_event_picture_capture); // add image preview
+        mImageViewLocation = (ImageView) findViewById(R.id.img_event_location);
+        // upload picture
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+
+        /**
+         *  Add authentication to monitor the sign in status and allow anonymous signing method available for Firebase
+         */
         //auth
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -103,7 +115,9 @@ public class ReportEventActivity extends AppCompatActivity {
             }
         });
 
-        // check if GPS enabled
+        /**
+         *  Check if GPS enabled
+         */
         mActivity = this;
         mLocationTracker = new LocationTracker(mActivity);
         mLocationTracker.getLocation();
@@ -131,7 +145,6 @@ public class ReportEventActivity extends AppCompatActivity {
             }
         });
 
-
         // image preview
         mImageViewCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,20 +158,11 @@ public class ReportEventActivity extends AppCompatActivity {
 
     } // END of onCreate()
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-
+    /**
+     *  Helper function
+     * @return uploadEvent()
+     * @return uploadImage()
+     */
     private String uploadEvent() {
         String title = mEditTextTitle.getText().toString();
         String location = mEditTextLocation.getText().toString();
@@ -181,10 +185,10 @@ public class ReportEventActivity extends AppCompatActivity {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
                     Toast toast = Toast.makeText(getBaseContext(),
-                            "The event is failed, please check you network status.", Toast.LENGTH_SHORT);
+                            "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    Toast toast = Toast.makeText(getBaseContext(), "The event is reported", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getBaseContext(), "Successfully posted!", Toast.LENGTH_SHORT);
                     toast.show();
                     mEditTextTitle.setText("");
                     mEditTextLocation.setText("");
@@ -194,19 +198,12 @@ public class ReportEventActivity extends AppCompatActivity {
         });
         return key;
     }
-
-    /**
-     * Upload image and get file path
-     */
     private void uploadImage(final String eventId) {
         if (mImgUri == null) {
             return;
         }
-        StorageReference imgRef = storageRef.child("images/" + mImgUri.getLastPathSegment() + "_"
-                + System.currentTimeMillis());
-
+        StorageReference imgRef = storageRef.child("images/" + mImgUri.getLastPathSegment() + "_" + System.currentTimeMillis());
         UploadTask uploadTask = imgRef.putFile(mImgUri);
-
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -225,6 +222,28 @@ public class ReportEventActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Add and remove auth listeners
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    /**
+     *  Allow to go to another activity to choose a picture and return back to current activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

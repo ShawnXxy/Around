@@ -32,15 +32,13 @@ import static android.content.Context.LOCATION_SERVICE;
  */
 
 public class LocationTracker implements LocationListener{
+
     private final Activity mContext;
     private static final int PERMISSIONS_REQUEST_LOCATION = 99;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60;
-
     private boolean mIsGPSEnabled = false;
     private boolean mIsNetworkEnabled;
-
     private boolean mCangetLocation;
     private Location location; // location
     private double latitude; // latitude
@@ -50,17 +48,18 @@ public class LocationTracker implements LocationListener{
 
     public LocationTracker(Activity context) {
         this.mContext = context;
-
     }
 
+    /**
+     *  get location using location manager
+     * @return
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
-
             // getting GPS status
             mIsGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
             // getting network status
             mIsNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
@@ -107,26 +106,6 @@ public class LocationTracker implements LocationListener{
         return location;
     } // END of getLocation()
 
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
     /**
      * Function to get latitude
      * */
@@ -137,7 +116,6 @@ public class LocationTracker implements LocationListener{
         // return latitude
         return latitude;
     }
-
     /**
      * Function to get longitude
      * */
@@ -150,9 +128,11 @@ public class LocationTracker implements LocationListener{
     }
 
     public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(mContext,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // No explanation needed, we can request the permission.
-            ActivityCompat.requestPermissions(mContext, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+        if (ContextCompat.checkSelfPermission(mContext,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // request the permission.
+            ActivityCompat.requestPermissions(mContext,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
         }
         return true;
     }
@@ -165,7 +145,6 @@ public class LocationTracker implements LocationListener{
         HttpClient client = new DefaultHttpClient();
         HttpResponse response;
         StringBuilder stringBuilder = new StringBuilder();
-
         try {
             response = client.execute(httpGet);
             HttpEntity entity = response.getEntity();
@@ -177,14 +156,12 @@ public class LocationTracker implements LocationListener{
         } catch (ClientProtocolException e) {
         } catch (IOException e) {
         }
-
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject = new JSONObject(stringBuilder.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return jsonObject;
     }
 
@@ -204,7 +181,6 @@ public class LocationTracker implements LocationListener{
                         address.add(formatted_addresses[1]);
                         address.add(formatted_addresses[2]);
                         address.add(formatted_addresses[3]);
-
                         break;
                     }
                     i++;
@@ -217,5 +193,23 @@ public class LocationTracker implements LocationListener{
         }
         return address;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+
 
 }

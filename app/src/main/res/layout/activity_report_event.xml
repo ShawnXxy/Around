@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--Top header-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/relativelayout_report"
-        android:background="#FF3F89E7"
-        >
+        android:background="#FF3F89E7">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -18,9 +18,7 @@
             android:paddingLeft="20dp"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:text="ReportEvent"
-            >
-        </TextView>
+            android:text="ReportEvent"/>
         <ImageView
             android:id="@+id/img_event_report"
             android:layout_width="20dp"
@@ -30,7 +28,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp" />
     </RelativeLayout>
-
     <EditText
         android:id="@+id/edit_text_event_title"
         android:layout_width="match_parent"
@@ -45,15 +42,12 @@
         android:background="@android:color/transparent"
         android:layout_gravity="center_horizontal"
         android:hint="Title (less than 50 chars)"
-        android:maxLines="1"
-        />
-
+        android:maxLines="1" />
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/edit_text_event_title"
         android:background="#FFE6E6EB" />
-
     <EditText
         android:id="@+id/edit_text_event_content"
         android:layout_width="match_parent"
@@ -67,9 +61,8 @@
         android:textSize="16sp"
         android:background="@android:color/transparent"
         android:layout_gravity="center_horizontal"
-        android:hint="See something, say something"
-        />
-
+        android:hint="See something, say something" />
+    <!--// Image preview box-->
     <ImageView
         android:id="@+id/img_event_picture_capture"
         android:layout_width="match_parent"
@@ -80,20 +73,17 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:visibility="gone" />
-
+    <!--Bottom Actions-->
     <RelativeLayout
         android:layout_height="60dp"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        >
-
+        android:layout_alignParentBottom="true">
         <ImageView
             android:id="@+id/img_event_location"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:src="@drawable/location" />
-
         <EditText
             android:id="@+id/edit_text_event_location"
             android:layout_toRightOf="@+id/img_event_location"
@@ -109,9 +99,7 @@
             android:layout_gravity="center_horizontal"
             android:singleLine="true"
             android:paddingRight="70dp"
-            android:hint="Location"
-            />
-
+            android:hint="Location" />
         <ImageView
             android:id="@+id/img_event_camera"
             android:layout_width="30dp"
@@ -121,6 +109,16 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp" />
     </RelativeLayout>
+
+    <!-- add botton navigation view to the app-->
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:itemIconTint="@android:color/darker_gray"-->
+        <!--app:itemTextColor="@android:color/darker_gray"-->
+        <!--app:menu="@menu/event_navigation_items" />-->
 </RelativeLayout>
 
     <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->

@@ -21,9 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements EventFragment.OnItemSelectListener, CommentFragment.OnItemSelectListener {
+
+    // to show multiple fragments in one activity
     private EventFragment mListFragment;
     private CommentFragment mGridFragment;
 
+    //  For Login Activity
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private Button mSubmitButton;
@@ -36,25 +39,23 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
         setContentView(R.layout.activity_main);
         Log.e("Life cycle test", "We are at onCreate()"); // TEST in log
 
-        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//        myRef.setValue("Hello, World!");
-
         /**
-         *  Initialize widgets in the activity
+         *  For Firebase
          */
         // Firebase uses singleton to initialize the sdk
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mUsernameEditText = (EditText) findViewById(R.id.editTextLogin);
         mPasswordEditText = (EditText) findViewById(R.id.editTextPassword);
         mSubmitButton = (Button) findViewById(R.id.submit);
         mRegisterButton = (Button) findViewById(R.id.register);
-//        /admob
+        //admob
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        // Write a message to the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+//        myRef.setValue("Hello, World!");
 
         /**
          *  Implements button registration click event
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                             Toast.makeText(getBaseContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                             Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -114,33 +113,32 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
             }
         });
 
-        // Show different fragments based on screen size.
-//        if (findViewById(R.id.fragment_container) != null) {
-//            Fragment fragment = isTablet() ? new CommentFragment() : new EventFragment();
-//            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
-//        }
-
+        /**
+         *  show multiple fragments in one activity
+         */
 //        //add list view
 //        mListFragment = new EventFragment();
 //        getSupportFragmentManager().beginTransaction().add(R.id.event_container, mListFragment).commit();
-//
 //        //add Gridview
 //        if (isTablet()) {
 //            mGridFragment = new CommentFragment();
 //            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
 //        }
+//        //Show different fragments based on screen size.
+//        if (findViewById(R.id.fragment_container) != null) {
+//            Fragment fragment = isTablet() ? new CommentFragment() : new EventFragment();
+//            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
+//        }
 
         /**
          *  Below section is not needed for Fragment
          */
-        // Get ListView object from xml.
+//        // Get ListView object from xml.
 //        ListView eventListView = (ListView) findViewById(R.id.event_list);
-//
+//        // Initialize an adapter.
 //        EventAdapter adapter = new EventAdapter(this);
-//
 //        // Assign adapter to ListView.
 //        eventListView.setAdapter(adapter);
-//
 //        // Initialize an adapter. Used for the dummy function test below
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 //                this,
@@ -150,6 +148,21 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
 //        );
 
     } // END OF onCreate()
+
+    private boolean isTablet() {
+        return (getApplicationContext().getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    @Override
+    public void onItemSelected(int position) { // defined in CommentFragment
+        mGridFragment.onItemSelected(position);
+    }
+
+    @Override
+    public void onCommentSelected(int position) {
+        mListFragment.onItemSelected(position);
+    }
 
     /**
      * A dummy function to get fake event names.
@@ -164,12 +177,6 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
 //                "Event10", "Event11", "Event12"};
 //        return names;
 //    }
-
-    private boolean isTablet() {
-        return (getApplicationContext().getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK) >=
-                Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
 
     @Override
     protected void onStart() {
@@ -201,13 +208,5 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
         Log.e("Life cycle test", "We are at onDestroy()");
     }
 
-    @Override
-    public void onItemSelected(int position) { // defined in CommentFragment
-        mGridFragment.onItemSelected(position);
-    }
 
-    @Override
-    public void onCommentSelected(int position) {
-        mListFragment.onItemSelected(position);
-    }
 }
