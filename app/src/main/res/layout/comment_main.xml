@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:weightSum="1">
     <!--Top header-->
     <!--<RelativeLayout-->
@@ -63,7 +63,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="San Francisco, CA"
                         android:textSize="16sp"
                         android:textColor="#939393"
                         android:fontFamily="Roboto"/>
@@ -75,7 +74,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="6dp"
                     android:textSize="11sp"
-                    android:text="2001 1/ 1"
                     android:fontFamily="Roboto"
                     android:textColor="#939393"/>
             </LinearLayout>
@@ -106,8 +104,7 @@
             android:id="@+id/comment_main_image"
             android:layout_width="match_parent"
             android:layout_height="210dp"
-            android:paddingBottom="15dp"
-            android:src="@drawable/icon" />
+            android:paddingBottom="15dp" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -129,9 +126,9 @@
         <!--comment icon-->
         <ImageView
             android:id="@+id/comment_main_comment_img"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="11dp"
             android:background="@drawable/btn_feed_action"
             android:src="@drawable/ic_comment_outline_grey" />
         <!--More icon-->
