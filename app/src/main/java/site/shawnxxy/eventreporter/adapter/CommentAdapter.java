@@ -1,6 +1,7 @@
 package site.shawnxxy.eventreporter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import site.shawnxxy.eventreporter.Comment;
 import site.shawnxxy.eventreporter.Event;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.activity.CommentActivity;
 
 import static site.shawnxxy.eventreporter.Utils.timeTransformer;
 
@@ -76,11 +78,11 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public ImageView eventImgView;
         public ImageView eventImgViewGood;
         public ImageView eventImgViewComment;
-        public ImageView eventImgViewRepost;
+//        public ImageView eventImgViewRepost;
 
         public TextView eventLikeNumber;
-        public TextView eventCommentNumber;
-        public TextView eventRepostNumber;
+//        public TextView eventCommentNumber;
+//        public TextView eventRepostNumber;
         public View layout;
 
         public EventViewHolder(View v) {
@@ -94,10 +96,10 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             eventImgView = (ImageView) v.findViewById(R.id.comment_main_image);
             eventImgViewGood = (ImageView) v.findViewById(R.id.comment_main_like_img);
             eventImgViewComment = (ImageView) v.findViewById(R.id.comment_main_comment_img);
-            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
+//            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
             eventLikeNumber = (TextView) v.findViewById(R.id.comment_main_like_number);
-            eventCommentNumber = (TextView) v.findViewById(R.id.comment_main_comment_number);
-            eventRepostNumber = (TextView) v.findViewById(R.id.comment_main_repost_number);
+//            eventCommentNumber = (TextView) v.findViewById(R.id.comment_main_comment_number);
+//            eventRepostNumber = (TextView) v.findViewById(R.id.comment_main_repost_number);
         }
     } // End
 
@@ -176,9 +178,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.eventLocation.setText(locations[1] + "," + locations[2]);
         holder.eventDescription.setText(event.getDescription());
         holder.eventTime.setText(timeTransformer(event.getTime()));
-        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
+//        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
         holder.eventLikeNumber.setText(String.valueOf(event.getLike()));
-        holder.eventRepostNumber.setText(String.valueOf(event.getRepostNumber()));
+//        holder.eventRepostNumber.setText(String.valueOf(event.getRepostNumber()));
 
         if (event.getImgUri() != null) {
             final String url = event.getImgUri();
@@ -196,7 +198,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             holder.eventImgView.setVisibility(View.GONE);
         }
-
+        // Add click event listener to Like
         holder.eventImgViewGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +219,16 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+            }
+        });
+        // Comments Activity Intent
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CommentActivity.class);
+                String eventId = event.getId();
+                intent.putExtra("EventID", eventId);
+                context.startActivity(intent);
             }
         });
     }

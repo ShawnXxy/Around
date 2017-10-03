@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import site.shawnxxy.eventreporter.Comment;
+import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.Utils;
 import site.shawnxxy.eventreporter.adapter.CommentAdapter;
 
 public class CommentActivity extends AppCompatActivity {

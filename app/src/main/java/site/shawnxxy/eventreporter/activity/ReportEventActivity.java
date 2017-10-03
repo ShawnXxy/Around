@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +29,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.LocationTracker;
+import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.Utils;
 
 public class ReportEventActivity extends AppCompatActivity {
 

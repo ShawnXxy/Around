@@ -26,10 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import site.shawnxxy.eventreporter.CommentActivity;
 import site.shawnxxy.eventreporter.Event;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.activity.CommentActivity;
 
 /**
  * Created by ShawnX on 9/10/17.
@@ -101,10 +101,11 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         // Extra views for Like and Comments and Repost
         public ImageView img_view_good;
         public ImageView img_view_comment;
-        public ImageView img_view_repost;
+//        public ImageButton img_view_comment;
         public TextView good_number;
-        public TextView comment_number;
-        public TextView repost_number;
+//        public TextView comment_number;
+//        public ImageView img_view_repost;
+//        public TextView repost_number;
 
         public View layout;
         public ViewHolder(View v) {
@@ -119,10 +120,10 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // Extra views for Like and Comments and Repost
             img_view_good = (ImageView) v.findViewById(R.id.event_good_img);
             img_view_comment = (ImageView) v.findViewById(R.id.event_comment_img);
-            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
             good_number = (TextView) v.findViewById(R.id.event_good_number);
-            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
-            repost_number = (TextView) v.findViewById(R.id.event_repost_number);
+//            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
+//            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
+//            repost_number = (TextView) v.findViewById(R.id.event_repost_number);
         }
     }
     public class ViewHolderAds extends RecyclerView.ViewHolder {
@@ -184,7 +185,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             holder.imgview.setVisibility(View.GONE);
         }
-        // Add click event listener to corresponding
+        // Add click event listener to Like
         holder.img_view_good.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,10 +220,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 context.startActivity(intent);
             }
         });
-        /**
-         *  Repost Activity Intent
-         */
-
     } // End of configureItemView()
     private void configureAdsView(final ViewHolderAds adsHolder, final int position) {
         ViewHolderAds nativeExpressHolder = (ViewHolderAds) adsHolder;

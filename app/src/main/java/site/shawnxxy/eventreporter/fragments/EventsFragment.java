@@ -29,7 +29,7 @@ import java.util.List;
 import site.shawnxxy.eventreporter.Event;
 import site.shawnxxy.eventreporter.adapter.EventListAdapter;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.ReportEventActivity;
+import site.shawnxxy.eventreporter.activity.ReportEventActivity;
 //import android.app.Fragment;
 
 /**

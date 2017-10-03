@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.activity;
 
 //import android.app.Fragment;
 
@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.User;
+import site.shawnxxy.eventreporter.Utils;
 import site.shawnxxy.eventreporter.fragments.CommentFragment;
 import site.shawnxxy.eventreporter.fragments.EventFragment;
 
