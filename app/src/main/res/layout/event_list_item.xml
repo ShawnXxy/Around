@@ -43,7 +43,6 @@
                         android:layout_alignParentLeft="true"
                         android:fontFamily="Roboto"
                         android:paddingLeft="10dp"
-                        android:text="admin"
                         android:textColor="#3F89E7"
                         android:textSize="16sp" />
 
@@ -54,7 +53,6 @@
                         android:layout_alignParentRight="true"
                         android:fontFamily="Roboto"
                         android:paddingRight="10dp"
-                        android:text="Test, TT"
                         android:textColor="#939393"
                         android:textSize="16sp" />
                 </RelativeLayout>
@@ -66,7 +64,6 @@
                     android:fontFamily="Roboto"
                     android:paddingLeft="10dp"
                     android:paddingTop="6dp"
-                    android:text="2222 22/22"
                     android:textColor="#939393"
                     android:textSize="11sp" />
             </LinearLayout>

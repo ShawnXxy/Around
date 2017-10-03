@@ -93,6 +93,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // Views for event content
+        public TextView username;
         public TextView title;
         public TextView location;
         public TextView description;
@@ -112,6 +113,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(v);
             layout = v;
             // Views for event content
+            username = (TextView) v.findViewById(R.id.comment_main_user);
             title = (TextView) v.findViewById(R.id.event_item_title);
             location = (TextView) v.findViewById(R.id.event_item_location);
             description = (TextView) v.findViewById(R.id.event_item_description);
@@ -162,6 +164,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void configureItemView(final ViewHolder holder, final int position) {
         final Event event = eventList.get(position);
         holder.title.setText(event.getTitle());
+        holder.username.setText(event.getUsername());
         String[] locations = event.getAddress().split(",");
         holder.location.setText(locations[1] + "," + locations[2]);
         holder.description.setText(event.getDescription());
