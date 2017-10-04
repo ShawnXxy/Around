@@ -20,13 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import site.shawnxxy.eventreporter.Comment;
-import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.constructor.Comment;
+import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.utils.Utils;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
 
-import static site.shawnxxy.eventreporter.Utils.timeTransformer;
+import static site.shawnxxy.eventreporter.utils.Utils.timeTransformer;
 
 /**
  * Created by ShawnX on 9/17/17.

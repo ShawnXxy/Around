@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import site.shawnxxy.eventreporter.DataService;
-import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.utils.DataService;
+import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
 
 /**

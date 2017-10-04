@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.activity.ReportEventActivity;
 import site.shawnxxy.eventreporter.adapter.EventListAdapter;

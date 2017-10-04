@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.constructor;
 
 /**
  * Created by ShawnX on 9/3/17.

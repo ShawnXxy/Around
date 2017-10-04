@@ -30,10 +30,10 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import site.shawnxxy.eventreporter.Event;
-import site.shawnxxy.eventreporter.LocationTracker;
+import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.utils.LocationTracker;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.utils.Utils;
 
 public class ReportEventActivity extends AppCompatActivity {
 

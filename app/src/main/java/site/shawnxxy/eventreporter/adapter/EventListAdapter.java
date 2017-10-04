@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import site.shawnxxy.eventreporter.Event;
+import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.utils.Utils;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
 
 /**

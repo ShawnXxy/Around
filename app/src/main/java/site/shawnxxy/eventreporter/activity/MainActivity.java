@@ -19,9 +19,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import site.shawnxxy.eventreporter.AlertDialogManager;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.User;
-import site.shawnxxy.eventreporter.Utils;
+import site.shawnxxy.eventreporter.constructor.User;
+import site.shawnxxy.eventreporter.utils.SessionManager;
+import site.shawnxxy.eventreporter.utils.Utils;
 //import site.shawnxxy.eventreporter.fragments.EventFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,12 +38,21 @@ public class MainActivity extends AppCompatActivity {
     private Button mSubmitButton;
     private Button mRegisterButton;
     private DatabaseReference mDatabase;
+    // Shared Preferences
+    private SessionManager session;
+    // Alert Dialog Manager
+    private AlertDialogManager alert = new AlertDialogManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e("Life cycle test", "We are at onCreate()"); // TEST in log
+
+        /**
+         *  For Sessions using Shared Preferences
+         */
+        session = new SessionManager(getApplicationContext());
 
         /**
          *  For Firebase
@@ -73,14 +84,18 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username)) {
-                            Toast.makeText(getBaseContext(),"username is already registered, please change one", Toast.LENGTH_SHORT).show();
-                        } else if (!username.equals("") && !password.equals("")){
-                            // put username as key to set value
-                            mDatabase.child("users").child(user.getUsername()).setValue(user);
-                            Toast.makeText(getBaseContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
+                        if (username.trim().length() > 0 && password.trim().length() > 0) {
+                            if (dataSnapshot.hasChild(username)) {
+                                alert.showAlertDialog(MainActivity.this, "Registration failed..", "Username is already registered, please change one.", false);
+//                                Toast.makeText(getBaseContext(),"Username is already registered, please change one", Toast.LENGTH_SHORT).show();
+                            } else if (!username.equals("") && !password.equals("")) {
+                                // put username as key to set value
+                                mDatabase.child("users").child(user.getUsername()).setValue(user);
+                                Toast.makeText(getBaseContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(getBaseContext(), "Please put in valid username or password.", Toast.LENGTH_SHORT).show();
+                            alert.showAlertDialog(MainActivity.this, "Registration failed..", "Please input valid username or password and try again!", false);
+//                            Toast.makeText(getBaseContext(),"Please input valid username or password and try again!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
@@ -102,13 +117,21 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
-                            Log.i( "Your log", "You successfully login");
-                            Intent myIntent = new Intent(MainActivity.this, EventActivity.class);
-                            Utils.username = username;
-                            startActivity(myIntent);
+                        if (username.trim().length() > 0 && password.trim().length() > 0) {
+                            if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
+                                Log.i("Your log", "You successfully login");
+                                session.createLoginSession(username, password);
+                                Intent myIntent = new Intent(MainActivity.this, EventActivity.class);
+                                Utils.username = username;
+                                startActivity(myIntent);
+                                finish();
+                            } else {
+                                alert.showAlertDialog(MainActivity.this, "Login failed..", "Incorrect Username/Password", false);
+//                                Toast.makeText(getBaseContext(),"Incorrect username or password. Please try again or register.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(getBaseContext(),"Incorrect username or password. Please try again or register.", Toast.LENGTH_SHORT).show();
+                            alert.showAlertDialog(MainActivity.this, "Login failed..", "Please input valid username or password and try again!", false);
+//                            Toast.makeText(getBaseContext(),"Please input valid username or password and try again!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override

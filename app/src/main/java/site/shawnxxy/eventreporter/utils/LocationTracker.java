@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.utils;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

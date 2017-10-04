@@ -1,4 +1,4 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

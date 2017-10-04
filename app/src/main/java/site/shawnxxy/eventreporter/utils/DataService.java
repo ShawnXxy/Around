@@ -1,7 +1,9 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import site.shawnxxy.eventreporter.constructor.Event;
 
 /**
  * Created by ShawnX on 8/27/17.
