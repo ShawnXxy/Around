@@ -1,10 +1,8 @@
 package site.shawnxxy.eventreporter.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.fragments.EventsFragment;
@@ -12,9 +10,9 @@ import site.shawnxxy.eventreporter.fragments.EventsFragment;
 public class EventActivity extends AppCompatActivity {
 
     private Fragment mEventsFragment;
-    EventsFragment eventsFragment;
+//    EventsFragment eventsFragment;
     String username;
-    TextView usernameTextView;
+//    TextView usernameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +23,8 @@ public class EventActivity extends AppCompatActivity {
          *  Add the fragment to event activity dynamically
          */
         // get username from MainActivity
-        Intent intent = getIntent();
-        username = intent.getStringExtra("Username");
+//        Intent intent = getIntent();
+//        username = intent.getStringExtra("Username");
 //        usernameTextView = (TextView) findViewById(R.id.text_user);
 //        usernameTextView.setText("Welcome, " + username);
         // Create ReportEventFragment
@@ -35,6 +33,7 @@ public class EventActivity extends AppCompatActivity {
         }
         // Add Fragment to the fragment
         getSupportFragmentManager().beginTransaction().add(R.id.relativelayout_event, mEventsFragment).commit();
+
 //        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 //        // Set item click listener to the menu items
 //        bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -54,7 +53,7 @@ public class EventActivity extends AppCompatActivity {
 //        );
     } // End of onCreate()
     // Username used by fragment
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
 }

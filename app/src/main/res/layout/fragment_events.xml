@@ -9,18 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:id="@+id/appBarLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/view_feed_toolbar" />
-        </android.support.design.widget.AppBarLayout>
+            <!--<include-->
+                <!--android:id="@+id/toolbar"-->
+                <!--layout="@layout/view_feed_toolbar" />-->
+        <!--</android.support.design.widget.AppBarLayout>-->
 
         <!--<RelativeLayout-->
             <!--android:layout_width="match_parent"-->

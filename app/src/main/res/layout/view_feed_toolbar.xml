@@ -17,6 +17,7 @@
         android:scaleType="center"
         android:text="@string/app_name"
         android:textAlignment="center"
+        android:layout_centerVertical="true"
         android:textAllCaps="false"
         android:textAppearance="@android:style/TextAppearance.WindowTitle"
         android:textColor="@color/btn_context_menu_normal"

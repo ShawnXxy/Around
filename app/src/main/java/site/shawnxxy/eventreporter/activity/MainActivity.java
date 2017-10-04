@@ -3,7 +3,6 @@ package site.shawnxxy.eventreporter.activity;
 //import android.app.Fragment;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,14 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.User;
 import site.shawnxxy.eventreporter.Utils;
-import site.shawnxxy.eventreporter.fragments.CommentFragment;
-import site.shawnxxy.eventreporter.fragments.EventFragment;
+//import site.shawnxxy.eventreporter.fragments.EventFragment;
 
-public class MainActivity extends AppCompatActivity implements EventFragment.OnItemSelectListener, CommentFragment.OnItemSelectListener {
+public class MainActivity extends AppCompatActivity {
 
     // to show multiple fragments in one activity
-    private EventFragment mListFragment;
-    private CommentFragment mGridFragment;
+//    private EventFragment mListFragment;
+//    private CommentFragment mGridFragment;
 
     //  For Login Activity
     private EditText mUsernameEditText;
@@ -75,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (username == "" || password == "") {
-                            Toast.makeText(getBaseContext(), "Please put in valid username or password.", Toast.LENGTH_SHORT).show();
-                        } else if (dataSnapshot.hasChild(username)) {
+                        if (dataSnapshot.hasChild(username)) {
                             Toast.makeText(getBaseContext(),"username is already registered, please change one", Toast.LENGTH_SHORT).show();
                         } else if (!username.equals("") && !password.equals("")){
                             // put username as key to set value
                             mDatabase.child("users").child(user.getUsername()).setValue(user);
                             Toast.makeText(getBaseContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please put in valid username or password.", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
                             Utils.username = username;
                             startActivity(myIntent);
                         } else {
-                            Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(),"Incorrect username or password. Please try again or register.", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
@@ -157,20 +155,20 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
 
     } // END OF onCreate()
 
-    private boolean isTablet() {
-        return (getApplicationContext().getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+//    private boolean isTablet() {
+//        return (getApplicationContext().getResources().getConfiguration().screenLayout &
+//                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+//    }
 
-    @Override
-    public void onItemSelected(int position) { // defined in CommentFragment
-        mGridFragment.onItemSelected(position);
-    }
-
-    @Override
-    public void onCommentSelected(int position) {
-        mListFragment.onItemSelected(position);
-    }
+//    @Override
+//    public void onItemSelected(int position) { // defined in CommentFragment
+//        mGridFragment.onItemSelected(position);
+//    }
+//
+//    @Override
+//    public void onCommentSelected(int position) {
+//        mListFragment.onItemSelected(position);
+//    }
 
     /**
      * A dummy function to get fake event names.
