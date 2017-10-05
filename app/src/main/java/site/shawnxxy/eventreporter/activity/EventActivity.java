@@ -1,8 +1,12 @@
 package site.shawnxxy.eventreporter.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+
+import butterknife.BindView;
 
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.fragments.EventsFragment;
@@ -13,6 +17,9 @@ public class EventActivity extends AppCompatActivity {
 //    EventsFragment eventsFragment;
     String username;
 //    TextView usernameTextView;
+
+    @BindView(R.id.relativelayout_event)
+    CoordinatorLayout clContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,11 @@ public class EventActivity extends AppCompatActivity {
 //                }
 //        );
     } // End of onCreate()
+
+    public void showLikedSnackbar() {
+        Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
+    }
+
     // Username used by fragment
 //    public String getUsername() {
 //        return username;

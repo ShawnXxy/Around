@@ -3,6 +3,7 @@ package site.shawnxxy.eventreporter.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -26,10 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.activity.ReportEventActivity;
 import site.shawnxxy.eventreporter.adapter.EventListAdapter;
+import site.shawnxxy.eventreporter.constructor.Event;
 //import android.app.Fragment;
 
 /**
@@ -37,6 +37,7 @@ import site.shawnxxy.eventreporter.adapter.EventListAdapter;
  */
 public class EventsFragment extends Fragment {
 
+    // For admob
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1072772517";
 
     // call recycler view in fragment
@@ -54,14 +55,14 @@ public class EventsFragment extends Fragment {
     /**
      *  Add Connections between Event Activity and EventReportActivity
      */
-    private ImageView mImageViewAdd;
+    private FloatingActionButton mImageViewAdd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_events, container, false);
         View view = inflater.inflate(R.layout.fragment_events, container, false);
-        mImageViewAdd = (ImageView) view.findViewById(R.id.img_event_add);
+        mImageViewAdd = (FloatingActionButton) view.findViewById(R.id.img_event_add);
         mImageViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

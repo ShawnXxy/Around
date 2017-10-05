@@ -117,14 +117,14 @@
             <View
                 android:id="@+id/vBgLike"
                 android:layout_width="match_parent"
-                android:layout_height="302dp"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_like_circle_background"
                 android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/ivLike"
                 android:layout_width="match_parent"
-                android:layout_height="296dp"
+                android:layout_height="match_parent"
                 android:scaleType="center"
                 android:src="@drawable/ic_heart_outline_white"
                 android:visibility="invisible" />
