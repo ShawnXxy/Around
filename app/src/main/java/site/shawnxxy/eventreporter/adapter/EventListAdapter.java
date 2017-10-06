@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,10 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import site.shawnxxy.eventreporter.constructor.Event;
+import butterknife.BindView;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.utils.Utils;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
+import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.utils.Utils;
 
 /**
  * Created by ShawnX on 9/10/17.
@@ -100,8 +102,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView time;
         public ImageView imgview;
         // Extra views for Like and Comments and Repost
-        public ImageView img_view_good;
-        public ImageView img_view_comment;
+        public ImageButton btnLike;
+        public ImageButton btnComment;
 //        public ImageButton img_view_comment;
         public TextView good_number;
 //        public TextView comment_number;
@@ -120,8 +122,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             time = (TextView) v.findViewById(R.id.event_item_time);
             imgview = (ImageView) v.findViewById(R.id.event_item_img);
             // Extra views for Like and Comments and Repost
-            img_view_good = (ImageView) v.findViewById(R.id.event_good_img);
-            img_view_comment = (ImageView) v.findViewById(R.id.event_comment_img);
+            btnLike= (ImageButton) v.findViewById(R.id.btnLike);
+            btnComment = (ImageButton) v.findViewById(R.id.btnComment);
             good_number = (TextView) v.findViewById(R.id.event_good_number);
 //            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
 //            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
@@ -161,6 +163,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      * @param holder
      * @param position
      */
+    @BindView(R.id.btnLike)
+    ImageButton btnLike;
     private void configureItemView(final ViewHolder holder, final int position) {
         final Event event = eventList.get(position);
         holder.title.setText(event.getTitle());
@@ -189,7 +193,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.imgview.setVisibility(View.GONE);
         }
         // Add click event listener to Like
-        holder.img_view_good.setOnClickListener(new View.OnClickListener() {
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -211,10 +215,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 });
             }
         });
-        /**
-         *  Comments Activity Intent
-         */
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        // Comments Activity Intent
+        holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CommentActivity.class);

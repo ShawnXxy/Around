@@ -15,6 +15,12 @@
     <string name="new_events">Report</string>
     <string name="comment">Comments</string>
 
+    <!--for event list menu-->
+    <string name="repost">FORWARD</string>
+    <string name="share">SHARE</string>
+    <string name="report">REPORT</string>
+    <string name="copyurl">COPY SHARE URL</string>
+
     <!--admod-->
     <!--For business use, you can create ad unit id by link-->
     <!--https://support.google.com/admob/answer/3052638-->

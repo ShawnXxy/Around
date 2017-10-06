@@ -143,14 +143,14 @@
             android:paddingRight="8dp">
             <!--like icon-->
             <ImageButton
-                android:id="@+id/event_good_img"
+                android:id="@+id/btnLike"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_heart_outline_grey" />
             <!--comment icon-->
-            <ImageView
-                android:id="@+id/event_comment_img"
+            <ImageButton
+                android:id="@+id/btnComment"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="11dp"

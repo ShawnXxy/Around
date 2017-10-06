@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,8 +77,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public TextView eventDescription;
         public TextView eventTime;
         public ImageView eventImgView;
-        public ImageView eventImgViewGood;
-        public ImageView eventImgViewComment;
+        public ImageButton btnLike;
+        public ImageButton btnComment;
 //        public ImageView eventImgViewRepost;
 
         public TextView eventLikeNumber;
@@ -94,8 +95,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             eventDescription = (TextView) v.findViewById(R.id.comment_main_description);
             eventTime = (TextView) v.findViewById(R.id.comment_main_time);
             eventImgView = (ImageView) v.findViewById(R.id.comment_main_image);
-            eventImgViewGood = (ImageView) v.findViewById(R.id.comment_main_like_img);
-            eventImgViewComment = (ImageView) v.findViewById(R.id.comment_main_comment_img);
+            btnLike = (ImageButton) v.findViewById(R.id.btnLike);
+            btnComment = (ImageButton) v.findViewById(R.id.btnComment);
 //            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
             eventLikeNumber = (TextView) v.findViewById(R.id.comment_main_like_number);
 //            eventCommentNumber = (TextView) v.findViewById(R.id.comment_main_comment_number);
@@ -199,7 +200,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.eventImgView.setVisibility(View.GONE);
         }
         // Add click event listener to Like
-        holder.eventImgViewGood.setOnClickListener(new View.OnClickListener() {
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -222,7 +223,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         });
         // Comments Activity Intent
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CommentActivity.class);
