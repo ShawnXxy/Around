@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = mUsernameEditText.getText().toString();
                 final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
+                // Check firebase data
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

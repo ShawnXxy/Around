@@ -61,9 +61,6 @@ public class CommentActivity extends AppCompatActivity {
                 sendComment(eventId);
                 mEditTextComment.setText("");
                 getData(eventId, commentAdapter);
-                // Go back to Comment view when finish posting
-//                Intent intent = new Intent(this, Comment.class);
-//                startActivity(intent);
             }
         });
         getData(eventId, commentAdapter); // getData<> defined below

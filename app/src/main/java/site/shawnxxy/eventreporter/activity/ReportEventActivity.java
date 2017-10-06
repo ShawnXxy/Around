@@ -30,6 +30,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import site.shawnxxy.eventreporter.AlertDialogManager;
 import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.utils.LocationTracker;
 import site.shawnxxy.eventreporter.R;
@@ -61,6 +62,8 @@ public class ReportEventActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ImageView mImageViewLocation;
+    // Alert Dialog Manager
+    private AlertDialogManager alert = new AlertDialogManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +78,19 @@ public class ReportEventActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         // Add click event to camera icon, trigger event to choose pictures
         mImageViewSend.setOnClickListener(new View.OnClickListener() {
+            final String title = mEditTextTitle.getText().toString();
+            final String content = mEditTextContent.getText().toString();
             @Override
             public void onClick(View v) {
                 String key = uploadEvent(); // function defined in below
-                if (mImgUri != null) {
-                    uploadImage(key);
-                    mImgUri = null;
-                }
+//                if (title.trim().length() > 0 && content.trim().length() > 0) {
+                    if (mImgUri != null) {
+                        uploadImage(key);
+                        mImgUri = null;
+                    }
+//                } else {
+//                    alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
+//                }
             }
         });
 
@@ -189,15 +198,18 @@ public class ReportEventActivity extends AppCompatActivity {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
-                    Toast toast = Toast.makeText(getBaseContext(),
-                            "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
-                    toast.show();
+                    alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Please check your network status!", false);
+//                    Toast toast = Toast.makeText(getBaseContext(),
+//                            "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
+//                    toast.show();
                 } else {
                     Toast toast = Toast.makeText(getBaseContext(), "Successfully posted!", Toast.LENGTH_SHORT);
                     toast.show();
                     mEditTextTitle.setText("");
                     mEditTextLocation.setText("");
                     mEditTextContent.setText("");
+                    Intent intent = new Intent(ReportEventActivity.this, EventActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -214,6 +226,7 @@ public class ReportEventActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                alert.showAlertDialog(ReportEventActivity.this, "Something goes wrong...", "Please try again!", false);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -221,8 +234,7 @@ public class ReportEventActivity extends AppCompatActivity {
                 @SuppressWarnings("VisibleForTests")
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Log.i(TAG, "upload successfully" + eventId);
-                database.child("events").child(eventId).child("imgUri").
-                        setValue(downloadUrl.toString());
+                database.child("events").child(eventId).child("imgUri").setValue(downloadUrl.toString());
             }
         });
     }
