@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import butterknife.BindView;
-
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.fragments.EventsFragment;
+import site.shawnxxy.eventreporter.utils.SessionManager;
 
 public class EventActivity extends AppCompatActivity {
+
+    // Session Manager Class
+    SessionManager session;
 
     private Fragment mEventsFragment;
 //    EventsFragment eventsFragment;
@@ -27,6 +30,12 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         /**
+         *  Check session
+         */
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+
+        /**
          *  Add the fragment to event activity dynamically
          */
         // get username from MainActivity
@@ -40,6 +49,9 @@ public class EventActivity extends AppCompatActivity {
         }
         // Add Fragment to the fragment
         getSupportFragmentManager().beginTransaction().add(R.id.relativelayout_event, mEventsFragment).commit();
+
+
+
 
 //        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 //        // Set item click listener to the menu items

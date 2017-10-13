@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
 import site.shawnxxy.eventreporter.constructor.Event;
@@ -163,8 +162,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      * @param holder
      * @param position
      */
-    @BindView(R.id.btnLike)
-    ImageButton btnLike;
+    boolean isLike = true;
     private void configureItemView(final ViewHolder holder, final int position) {
         final Event event = eventList.get(position);
         holder.title.setText(event.getTitle());
@@ -193,9 +191,17 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.imgview.setVisibility(View.GONE);
         }
         // Add click event listener to Like
+
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLike) {
+                    holder.btnLike.setImageResource(R.drawable.ic_heart_outline_grey);
+                    isLike = false;
+                } else {
+                    holder.btnLike.setImageResource(R.drawable.ic_heart_red);
+                    isLike = true;
+                }
                 databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

@@ -30,7 +30,8 @@ public class SessionManager {
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
     // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "name";
+    public static final String KEY_NAME = "username";
+    public static final String KEY_PASSWORD = "password";
     // Constructor
     public SessionManager(Context context) {
         this.context = context;
@@ -41,11 +42,12 @@ public class SessionManager {
     /**
      *  Create Login session
      */
-    public void createLoginSession(String name, String email) {
+    public void createLoginSession(String username, String password) {
         // Store login value
         editor.putBoolean(IS_LOGIN, true);
         // Store name if pref
-        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_NAME, username);
+        editor.putString(KEY_PASSWORD, password);
         // Commit changes
         editor.commit();
     }
@@ -56,7 +58,7 @@ public class SessionManager {
      *  if false, will redirect user to login page
      */
     public void checkLogin() {
-        if (this.isLoggedIn()) {
+        if (!this.isLoggedIn()) {
             Intent i = new Intent(context, MainActivity.class);
             // Closing all activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -76,6 +78,7 @@ public class SessionManager {
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+//        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
         return user;
     }
 
