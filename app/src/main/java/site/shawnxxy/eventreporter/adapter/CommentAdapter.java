@@ -172,6 +172,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.commentDescription.setText(comment.getDescription());
     }
 
+    boolean isLike = false;
     private void configureEventView(final EventViewHolder holder) {
         holder.eventUser.setText(event.getUsername());
         holder.eventTitle.setText(event.getTitle());
@@ -203,6 +204,13 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLike) {
+                    holder.btnLike.setImageResource(R.drawable.ic_heart_outline_grey);
+                    isLike = false;
+                } else {
+                    holder.btnLike.setImageResource(R.drawable.ic_heart_red);
+                    isLike = true;
+                }
                 databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

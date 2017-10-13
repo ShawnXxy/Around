@@ -162,7 +162,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      * @param holder
      * @param position
      */
-    boolean isLike = true;
+    boolean isLike = false;
     private void configureItemView(final ViewHolder holder, final int position) {
         final Event event = eventList.get(position);
         holder.title.setText(event.getTitle());
@@ -191,7 +191,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.imgview.setVisibility(View.GONE);
         }
         // Add click event listener to Like
-
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
