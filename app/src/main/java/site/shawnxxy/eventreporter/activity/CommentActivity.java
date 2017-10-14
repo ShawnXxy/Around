@@ -22,6 +22,7 @@ import java.util.List;
 import site.shawnxxy.eventreporter.constructor.Comment;
 import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.utils.AlertDialogManager;
 import site.shawnxxy.eventreporter.utils.Utils;
 import site.shawnxxy.eventreporter.adapter.CommentAdapter;
 
@@ -36,6 +37,8 @@ public class CommentActivity extends AppCompatActivity {
     private CommentAdapter commentAdapter;
     private Button mCommentSubmitButton;
     private RecyclerView.LayoutManager mLayoutManager;
+    // Alert Dialog Manager
+    private AlertDialogManager alert = new AlertDialogManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,13 +125,14 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "The comment is failed," +
-                            " please check you network status.", Toast.LENGTH_SHORT);
-                    toast.show();
+//                    Toast toast = Toast.makeText(getApplicationContext(), "The comment is failed," + " please check you network status.", Toast.LENGTH_SHORT);
+//                    toast.show();
+                    alert.showAlertDialog(CommentActivity.this, "The comment is failed..", "Please check you network status.!", false);
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "The comment is posted!", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),"The comment is posted!", Toast.LENGTH_SHORT);
                     toast.show();
+//                    Intent myIntent = new Intent(CommentActivity.this, CommentActivity.class);
+//                    startActivity(myIntent);
                 }
             }
         });

@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import site.shawnxxy.eventreporter.AlertDialogManager;
+import site.shawnxxy.eventreporter.utils.AlertDialogManager;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.constructor.User;
 import site.shawnxxy.eventreporter.utils.SessionManager;

@@ -1,8 +1,10 @@
-package site.shawnxxy.eventreporter;
+package site.shawnxxy.eventreporter.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
+import site.shawnxxy.eventreporter.R;
 
 /**
  * Created by ShawnX on 10/4/17.

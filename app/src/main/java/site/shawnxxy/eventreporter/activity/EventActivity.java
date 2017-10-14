@@ -50,9 +50,6 @@ public class EventActivity extends AppCompatActivity {
         // Add Fragment to the fragment
         getSupportFragmentManager().beginTransaction().add(R.id.relativelayout_event, mEventsFragment).commit();
 
-
-
-
 //        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 //        // Set item click listener to the menu items
 //        bottomNavigationView.setOnNavigationItemSelectedListener(

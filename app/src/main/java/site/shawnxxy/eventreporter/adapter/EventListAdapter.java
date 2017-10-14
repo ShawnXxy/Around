@@ -47,6 +47,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private LayoutInflater inflater;
     private DatabaseReference databaseReference;
     private Map<Integer, NativeExpressAdView> map = new HashMap<>();
+    // btnLike action notification
+    public static final String ACTION_LIKE_BUTTON_CLICKED = "action_like_button_button";
 
     /**
      *
@@ -104,6 +106,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public ImageButton btnLike;
         public ImageButton btnComment;
 //        public ImageButton img_view_comment;
+        public ImageButton btnMore;
         public TextView good_number;
 //        public TextView comment_number;
 //        public ImageView img_view_repost;
@@ -123,6 +126,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // Extra views for Like and Comments and Repost
             btnLike= (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
+            btnMore = (ImageButton) v.findViewById(R.id.btnMore);
             good_number = (TextView) v.findViewById(R.id.event_good_number);
 //            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
 //            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
@@ -200,6 +204,11 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else {
                     holder.btnLike.setImageResource(R.drawable.ic_heart_red);
                     isLike = true;
+                    int adapterPosition = holder.getAdapterPosition();
+                    notifyItemChanged(adapterPosition, ACTION_LIKE_BUTTON_CLICKED);
+//                    if (context instanceof EventActivity) {
+//                        ((EventActivity) context).showLikedSnackbar();
+//                    }
                 }
                 databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -230,7 +239,15 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 context.startActivity(intent);
             }
         });
+        // btnMore
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     } // End of configureItemView()
+
     private void configureAdsView(final ViewHolderAds adsHolder, final int position) {
         ViewHolderAds nativeExpressHolder = (ViewHolderAds) adsHolder;
         if (!map.containsKey(position)) {

@@ -30,7 +30,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import site.shawnxxy.eventreporter.AlertDialogManager;
+import site.shawnxxy.eventreporter.utils.AlertDialogManager;
 import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.utils.LocationTracker;
 import site.shawnxxy.eventreporter.R;
