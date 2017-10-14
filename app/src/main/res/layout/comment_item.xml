@@ -70,13 +70,13 @@
     </LinearLayout>
 
     <!-- add botton navigation view to the app-->
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:background="@color/cardview_light_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemIconTint="@android:color/darker_gray"
-        app:itemTextColor="@android:color/darker_gray"
-        app:menu="@menu/event_navigation_items" />
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:background="@color/cardview_light_background"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:itemIconTint="@android:color/darker_gray"-->
+        <!--app:itemTextColor="@android:color/darker_gray"-->
+        <!--app:menu="@menu/event_navigation_items" />-->
 </LinearLayout>

@@ -110,7 +110,7 @@ public class CommentActivity extends AppCompatActivity {
      * @param eventId
      */
     private void sendComment(final String eventId) {
-        String description = mEditTextComment.getText().toString();
+        final String description = mEditTextComment.getText().toString();
         if (description.equals("")) {
             return;
         }
@@ -124,10 +124,10 @@ public class CommentActivity extends AppCompatActivity {
         mDatabaseReference.child("comments").child(key).setValue(comment, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
+                if (databaseError != null ) {
 //                    Toast toast = Toast.makeText(getApplicationContext(), "The comment is failed," + " please check you network status.", Toast.LENGTH_SHORT);
 //                    toast.show();
-                    alert.showAlertDialog(CommentActivity.this, "The comment is failed..", "Please check you network status.!", false);
+                    alert.showAlertDialog(CommentActivity.this, "The comment is failed..", "Please check you network status!", false);
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),"The comment is posted!", Toast.LENGTH_SHORT);
                     toast.show();

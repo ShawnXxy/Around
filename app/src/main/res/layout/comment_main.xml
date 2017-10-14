@@ -103,7 +103,7 @@
         <ImageView
             android:id="@+id/comment_main_image"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="wrap_content"
             android:paddingBottom="15dp" />
     </LinearLayout>
     <View

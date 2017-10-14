@@ -49,7 +49,7 @@
             android:textSize="13sp"
             android:textColor="#ffffff"
             android:id="@+id/comment_submit"
-            android:background="@color/style_color_primary"/>
+            android:background="@drawable/btn_send_comment"/>
     </RelativeLayout>
 </RelativeLayout>
 
