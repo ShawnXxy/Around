@@ -71,41 +71,41 @@ public class EventActivity extends AppCompatActivity {
 	    NavigationView navigationView = findViewById(R.id.nav_view);
 	    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 		    @Override
-		    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		    public boolean onNavigationItemSelected(MenuItem item) {
 			    drawerLayout.closeDrawers();
 			    int id = item.getItemId();
 
 			    if (id == R.id.menu_feed) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_photo_you_liked) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_news) {
 			    	// Do something
 			    } else if (id == R.id.menu_popular) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_photos_nearby) {
 			    	// Do something
+				    return true;
 			    } else if (id == R.id.menu_rests_nearby) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_events_nearby) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_settings) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_logout) {
 			    	// Do something
-
+				    return true;
 			    } else if (id == R.id.menu_about) {
 			    	// Do something
-
-			    } else {
-			    	return false;
+					return true;
 			    }
+			    return false;
 		    }
 	    });
 
