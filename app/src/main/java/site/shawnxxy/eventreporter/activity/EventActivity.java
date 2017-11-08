@@ -1,10 +1,17 @@
 package site.shawnxxy.eventreporter.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import butterknife.BindView;
 import site.shawnxxy.eventreporter.R;
@@ -50,6 +57,58 @@ public class EventActivity extends AppCompatActivity {
         // Add Fragment to the fragment
         getSupportFragmentManager().beginTransaction().add(R.id.relativelayout_event, mEventsFragment).commit();
 
+        /**
+         *  Drawer nav menu
+         */
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+	    final DrawerLayout drawerLayout = findViewById(R.id.root);
+
+	    ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+	    drawerLayout.setDrawerListener(actionBarDrawerToggle);
+	    actionBarDrawerToggle.syncState();
+
+	    NavigationView navigationView = findViewById(R.id.nav_view);
+	    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+		    @Override
+		    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+			    drawerLayout.closeDrawers();
+			    int id = item.getItemId();
+
+			    if (id == R.id.menu_feed) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_photo_you_liked) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_news) {
+			    	// Do something
+			    } else if (id == R.id.menu_popular) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_photos_nearby) {
+			    	// Do something
+			    } else if (id == R.id.menu_rests_nearby) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_events_nearby) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_settings) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_logout) {
+			    	// Do something
+
+			    } else if (id == R.id.menu_about) {
+			    	// Do something
+
+			    } else {
+			    	return false;
+			    }
+		    }
+	    });
+
 //        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 //        // Set item click listener to the menu items
 //        bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -72,6 +131,13 @@ public class EventActivity extends AppCompatActivity {
     public void showLikedSnackbar() {
         Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
     }
+
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.menu_simple_nav_drawer_and_view, menu);
+//		return true;
+//	}
 
     // Username used by fragment
 //    public String getUsername() {
