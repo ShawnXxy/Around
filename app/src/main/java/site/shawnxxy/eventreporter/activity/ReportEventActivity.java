@@ -181,8 +181,8 @@ public class ReportEventActivity extends AppCompatActivity {
         String title = mEditTextTitle.getText().toString();
         String location = mEditTextLocation.getText().toString();
         String description = mEditTextContent.getText().toString();
-        if (location.equals("") || description.equals("") ||
-                title.equals("") || Utils.username == null) {
+        if (location.equals("") || description.equals("") || title.equals("") || Utils.username == null) {
+            alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
             return null;
         }
         //create event instance
