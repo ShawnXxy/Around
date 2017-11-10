@@ -81,38 +81,37 @@
             <!--android:fontFamily="Roboto"/>-->
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/event_item_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="Roboto"
-            android:maxLines="1"
-            android:paddingLeft="10dp"
-            android:text="test title"
-            android:textColor="#2A3C30"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/event_item_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/event_item_title"
-            android:ellipsize="end"
-            android:fontFamily="Roboto"
-            android:maxLines="2"
-            android:paddingLeft="10dp"
-            android:textSize="16sp" />
+	    <TextView
+		    android:id="@+id/event_item_title"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:fontFamily="Roboto"
+		    android:maxLines="1"
+		    android:paddingLeft="10dp"
+		    android:text="test title"
+		    android:textColor="#2A3C30"
+		    android:textSize="20sp" />
+	    <TextView
+		    android:id="@+id/event_item_description"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/event_item_title"
+		    android:ellipsize="end"
+		    android:fontFamily="Roboto"
+		    android:maxLines="2"
+		    android:paddingLeft="10dp"
+		    android:textSize="16sp" />
 
         <site.shawnxxy.eventreporter.view.SquaredFrameLayout
             android:id="@+id/vImageRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/event_item_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+	        <ImageView
+		        android:id="@+id/event_item_img"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:scaleType="centerCrop" />
 
             <!--<View-->
                 <!--android:id="@+id/vBgLike"-->
