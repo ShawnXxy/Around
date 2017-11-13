@@ -8,19 +8,26 @@
     app:elevation="@dimen/default_elevation"
     app:layout_scrollFlags="scroll|enterAlways"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+	<ImageView
+		android:id="@+id/ivLogo"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		android:scaleType="center"
+		android:src="@drawable/toolbar_title" />
 
-    <TextView
-        android:id="@+id/ivLogo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:layout_centerVertical="true"
-        android:textAllCaps="false"
-        android:textAppearance="@android:style/TextAppearance.WindowTitle"
-        android:textColor="@color/btn_context_menu_normal"
-        android:textSize="30dp"
-        android:typeface="serif" />
+    <!--<TextView-->
+        <!--android:id="@+id/ivLogo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:scaleType="center"-->
+        <!--android:text="@string/app_name"-->
+        <!--android:textAlignment="center"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textAppearance="@android:style/TextAppearance.WindowTitle"-->
+        <!--android:textColor="@color/btn_context_menu_normal"-->
+        <!--android:textSize="30dp"-->
+        <!--android:typeface="serif" />-->
 </android.support.v7.widget.Toolbar>

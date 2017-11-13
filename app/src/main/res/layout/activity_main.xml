@@ -40,10 +40,10 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"
-            android:layout_gravity="center"/>
+            android:layout_width="366dp"
+            android:layout_height="139dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
         <!-- username tag-->
         <TextView
             android:layout_width="wrap_content"

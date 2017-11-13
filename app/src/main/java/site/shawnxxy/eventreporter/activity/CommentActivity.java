@@ -66,7 +66,7 @@ public class CommentActivity extends AppCompatActivity {
                 getData(eventId, commentAdapter);
             }
         });
-        getData(eventId, commentAdapter); // getData<> defined below
+        getData(eventId, commentAdapter); // getData() defined below
     }
 
     private void getData(final String eventId, final CommentAdapter commentAdapter) {

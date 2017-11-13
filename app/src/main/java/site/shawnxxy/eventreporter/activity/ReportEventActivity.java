@@ -208,6 +208,7 @@ public class ReportEventActivity extends AppCompatActivity {
                     mEditTextTitle.setText("");
                     mEditTextLocation.setText("");
                     mEditTextContent.setText("");
+                    // Go back to main event activity when post completed
                     Intent intent = new Intent(ReportEventActivity.this, EventActivity.class);
                     startActivity(intent);
                 }

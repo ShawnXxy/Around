@@ -108,7 +108,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //        public ImageButton img_view_comment;
         public ImageButton btnMore;
         public TextView good_number;
-//        public TextView comment_number;
+        public TextView comment_number;
 //        public ImageView img_view_repost;
 //        public TextView repost_number;
 
@@ -127,8 +127,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             btnLike= (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
             btnMore = (ImageButton) v.findViewById(R.id.btnMore);
-            good_number = (TextView) v.findViewById(R.id.event_good_number);
-//            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
+            good_number = (TextView) v.findViewById(R.id.event_like_number);
+            comment_number = (TextView) v.findViewById(R.id.event_comment_number);
 //            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
 //            repost_number = (TextView) v.findViewById(R.id.event_repost_number);
         }

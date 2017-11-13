@@ -82,7 +82,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //        public ImageView eventImgViewRepost;
 
         public TextView eventLikeNumber;
-//        public TextView eventCommentNumber;
+        public TextView eventCommentNumber;
 //        public TextView eventRepostNumber;
         public View layout;
 
@@ -90,16 +90,16 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(v);
             layout = v;
             eventUser = (TextView) v.findViewById(R.id.comment_main_user);
-            eventTitle = (TextView) v.findViewById(R.id.comment_main_title);
-            eventLocation = (TextView) v.findViewById(R.id.comment_main_location);
-            eventDescription = (TextView) v.findViewById(R.id.comment_main_description);
-            eventTime = (TextView) v.findViewById(R.id.comment_main_time);
-            eventImgView = (ImageView) v.findViewById(R.id.comment_main_image);
+            eventTitle = (TextView) v.findViewById(R.id.event_item_title);
+            eventLocation = (TextView) v.findViewById(R.id.event_item_location);
+            eventDescription = (TextView) v.findViewById(R.id.event_item_description);
+            eventTime = (TextView) v.findViewById(R.id.event_item_time);
+            eventImgView = (ImageView) v.findViewById(R.id.event_item_img);
             btnLike = (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
 //            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
-            eventLikeNumber = (TextView) v.findViewById(R.id.comment_main_like_number);
-//            eventCommentNumber = (TextView) v.findViewById(R.id.comment_main_comment_number);
+            eventLikeNumber = (TextView) v.findViewById(R.id.event_like_number);
+            eventCommentNumber = (TextView) v.findViewById(R.id.event_comment_number);
 //            eventRepostNumber = (TextView) v.findViewById(R.id.comment_main_repost_number);
         }
     } // End
@@ -180,7 +180,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.eventLocation.setText(locations[1] + "," + locations[2]);
         holder.eventDescription.setText(event.getDescription());
         holder.eventTime.setText(timeTransformer(event.getTime()));
-//        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
+        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
         holder.eventLikeNumber.setText(String.valueOf(event.getLike()));
 //        holder.eventRepostNumber.setText(String.valueOf(event.getRepostNumber()));
 

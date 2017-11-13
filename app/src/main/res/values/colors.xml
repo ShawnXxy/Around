@@ -4,9 +4,9 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
 
-    <color name="style_color_primary">#2d5d82</color>
-    <color name="style_color_primary_dark">#21425d</color>
-    <color name="style_color_accent">#01bcd5</color>
+    <color name="style_color_primary">#419947</color>
+    <color name="style_color_primary_dark">#3e8237</color>
+    <color name="style_color_accent">#2f936c</color>
 
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
