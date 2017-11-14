@@ -81,8 +81,7 @@ public class CommentActivity extends AppCompatActivity {
                         comments.add(comment);
                     }
                 }
-                mDatabaseReference.getRef().child("events").child(eventId).
-                        child("commentNumber").setValue(comments.size());
+                mDatabaseReference.getRef().child("events").child(eventId).child("commentNumber").setValue(comments.size());
                 commentAdapter.setComments(comments);
 
                 DataSnapshot eventSnapshot = dataSnapshot.child("events");

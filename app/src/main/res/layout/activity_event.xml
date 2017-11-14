@@ -13,6 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+	    <android.support.design.widget.AppBarLayout
+		    android:id="@+id/appBarLayout"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    <include
+			    android:id="@+id/toolbar"
+			    layout="@layout/view_feed_toolbar" />
+	    </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_container"
@@ -21,16 +29,6 @@
             android:scrollbars="none"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/view_feed_toolbar" />
-        </android.support.design.widget.AppBarLayout>
-
 	    <!--<android.support.v7.widget.Toolbar-->
 		    <!--android:id="@+id/toolbar"-->
 		    <!--android:layout_width="match_parent"-->
@@ -38,17 +36,17 @@
 		    <!--android:elevation="4dp"-->
 		    <!--android:background="?android:colorPrimary" />-->
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/img_event_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/btn_fab_margins"
-            android:layout_marginRight="@dimen/btn_fab_margins"
-            android:src="@drawable/add"
-            app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:pressedTranslationZ="12dp" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/img_event_add"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|right"-->
+            <!--android:layout_marginBottom="@dimen/btn_fab_margins"-->
+            <!--android:layout_marginRight="@dimen/btn_fab_margins"-->
+            <!--android:src="@drawable/add"-->
+            <!--app:borderWidth="0dp"-->
+            <!--app:elevation="6dp"-->
+            <!--app:pressedTranslationZ="12dp" />-->
 
     </android.support.design.widget.CoordinatorLayout>
 

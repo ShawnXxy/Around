@@ -29,9 +29,9 @@
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/view_feed_toolbar" />
+            <!--<include-->
+                <!--android:id="@+id/toolbar"-->
+                <!--layout="@layout/view_feed_toolbar" />-->
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"

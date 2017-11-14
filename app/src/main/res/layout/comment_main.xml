@@ -4,8 +4,16 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="8dp">
+	android:padding="10dp">
 	<!--Top header-->
+	<!--<android.support.design.widget.AppBarLayout-->
+		<!--android:id="@+id/appBarLayout"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="wrap_content">-->
+		<!--<include-->
+			<!--android:id="@+id/toolbar"-->
+			<!--layout="@layout/view_feed_toolbar" />-->
+	<!--</android.support.design.widget.AppBarLayout>-->
 	<!--<RelativeLayout-->
 	<!--android:id="@+id/relativelayout_report"-->
 	<!--android:layout_width="384dp"-->

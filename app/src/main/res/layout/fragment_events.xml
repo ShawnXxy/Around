@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="site.shawnxxy.eventreporter.fragments.EventsFragment">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appBarLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include-->
+            <!--android:id="@+id/toolbar"-->
+            <!--layout="@layout/view_feed_toolbar" />-->
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
