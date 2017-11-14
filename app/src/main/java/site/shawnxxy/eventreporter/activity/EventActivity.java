@@ -24,9 +24,6 @@ public class EventActivity extends AppCompatActivity {
     SessionManager session;
 
     private Fragment mEventsFragment;
-//    EventsFragment eventsFragment;
-    String username;
-//    TextView usernameTextView;
 
     @BindView(R.id.relativelayout_event)
     CoordinatorLayout clContent;
@@ -45,11 +42,6 @@ public class EventActivity extends AppCompatActivity {
         /**
          *  Add the fragment to event activity dynamically
          */
-        // get username from MainActivity
-//        Intent intent = getIntent();
-//        username = intent.getStringExtra("Username");
-//        usernameTextView = (TextView) findViewById(R.id.text_user);
-//        usernameTextView.setText("Welcome, " + username);
         // Create ReportEventFragment
         if (mEventsFragment == null) {
             mEventsFragment = new EventsFragment();
@@ -128,9 +120,9 @@ public class EventActivity extends AppCompatActivity {
 //        );
     } // End of onCreate()
 
-    public void showLikedSnackbar() {
-        Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
-    }
+//    public void showLikedSnackbar() {
+//        Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
+//    }
 
 //	@Override
 //	public boolean onCreateOptionsMenu(Menu menu) {

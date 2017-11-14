@@ -29,6 +29,7 @@ import java.util.Map;
 
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
+import site.shawnxxy.eventreporter.activity.EventActivity;
 import site.shawnxxy.eventreporter.constructor.Comment;
 import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.utils.Utils;
@@ -106,12 +107,10 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         // Extra views for Like and Comments and Repost
         public ImageButton btnLike;
         public ImageButton btnComment;
-//        public ImageButton img_view_comment;
         public ImageButton btnMore;
         public TextView good_number;
         public TextView eventCommentNumber;
-//        public ImageView img_view_repost;
-//        public TextView repost_number;
+
 
         public View layout;
         public ViewHolder(View v) {
@@ -130,8 +129,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             btnMore = (ImageButton) v.findViewById(R.id.btnMore);
             good_number = (TextView) v.findViewById(R.id.event_like_number);
             eventCommentNumber = (TextView) v.findViewById(R.id.event_comment_number);
-//            img_view_repost = (ImageView) v.findViewById(R.id.event_repost_img);
-//            repost_number = (TextView) v.findViewById(R.id.event_repost_number);
         }
     }
     public class ViewHolderAds extends RecyclerView.ViewHolder {
@@ -249,14 +246,6 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         });
     } // End of configureItemView()
-
-	private List<Comment> commentList;
-	private void configureCommentView(final CommentAdapter.CommentViewHolder holder, int position) {
-		final Comment comment = commentList.get(position - 1);
-		holder.commentUser.setText(comment.getCommenter());
-		holder.commentTime.setText(Utils.timeTransformer(comment.getTime()));
-		holder.commentDescription.setText(comment.getDescription());
-	}
 
     private void configureAdsView(final ViewHolderAds adsHolder, final int position) {
         ViewHolderAds nativeExpressHolder = (ViewHolderAds) adsHolder;

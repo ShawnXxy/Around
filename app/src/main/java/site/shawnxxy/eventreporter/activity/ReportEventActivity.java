@@ -83,14 +83,10 @@ public class ReportEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String key = uploadEvent(); // function defined in below
-//                if (title.trim().length() > 0 && content.trim().length() > 0) {
-                    if (mImgUri != null) {
-                        uploadImage(key);
-                        mImgUri = null;
-                    }
-//                } else {
-//                    alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
-//                }
+                if (mImgUri != null) {
+                    uploadImage(key);
+                    mImgUri = null;
+                }
             }
         });
 
@@ -199,8 +195,7 @@ public class ReportEventActivity extends AppCompatActivity {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
                     alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Please check your network status!", false);
-//                    Toast toast = Toast.makeText(getBaseContext(),
-//                            "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
+//                    Toast toast = Toast.makeText(getBaseContext(), "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
 //                    toast.show();
                 } else {
                     Toast toast = Toast.makeText(getBaseContext(), "Successfully posted!", Toast.LENGTH_SHORT);

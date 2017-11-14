@@ -1,5 +1,6 @@
 package site.shawnxxy.eventreporter.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -79,11 +80,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public ImageView eventImgView;
         public ImageButton btnLike;
         public ImageButton btnComment;
-//        public ImageView eventImgViewRepost;
-
         public TextView eventLikeNumber;
         public TextView eventCommentNumber;
-//        public TextView eventRepostNumber;
+
         public View layout;
 
         public EventViewHolder(View v) {
@@ -173,6 +172,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     boolean isLike = false;
+    @SuppressLint("StaticFieldLeak")
     private void configureEventView(final EventViewHolder holder) {
         holder.eventUser.setText(event.getUsername());
         holder.eventTitle.setText(event.getTitle());
@@ -230,16 +230,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
             }
         });
-        // Comments Activity Intent
-        holder.btnComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CommentActivity.class);
-                String eventId = event.getId();
-                intent.putExtra("EventID", eventId);
-                context.startActivity(intent);
-            }
-        });
+
     }
 
 }
