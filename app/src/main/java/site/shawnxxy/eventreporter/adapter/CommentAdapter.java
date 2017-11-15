@@ -96,10 +96,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             eventImgView = (ImageView) v.findViewById(R.id.event_item_img);
             btnLike = (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
-//            eventImgViewRepost = (ImageView) v.findViewById(R.id.comment_main_repost_img);
             eventLikeNumber = (TextView) v.findViewById(R.id.event_like_number);
             eventCommentNumber = (TextView) v.findViewById(R.id.event_comment_number);
-//            eventRepostNumber = (TextView) v.findViewById(R.id.comment_main_repost_number);
         }
     } // End
 
@@ -182,7 +180,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.eventTime.setText(timeTransformer(event.getTime()));
         holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
         holder.eventLikeNumber.setText(String.valueOf(event.getLike()));
-//        holder.eventRepostNumber.setText(String.valueOf(event.getRepostNumber()));
 
         if (event.getImgUri() != null) {
             final String url = event.getImgUri();

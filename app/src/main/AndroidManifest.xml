@@ -41,9 +41,6 @@
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
         </activity>
         <activity
 	        android:allowBackup="true"
@@ -55,7 +52,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.EventActivity" />
         </activity>
         <activity
 	        android:allowBackup="true"
@@ -66,7 +63,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.EventActivity"/>
         </activity>
         <!--<activity android:name=".activity.UserProfileActivity"></activity>-->
     </application>

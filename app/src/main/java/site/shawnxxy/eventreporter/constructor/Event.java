@@ -17,7 +17,6 @@ public class Event {
     private String username;
     private String imgUri;
     private int commentNumber;
-//    private int repostNumber;
     public Event() {
 
     }
@@ -77,17 +76,9 @@ public class Event {
     public int getCommentNumber() {
         return commentNumber;
     }
-//
-//    public int getRepostNumber() {
-//        return repostNumber;
-//    }
-//
-//    public void setRepostNumber(int repostNumber) {
-//        this.repostNumber = repostNumber;
-//    }
-//
+
     public void setCommentNumber(int commentNumber) {
-        commentNumber = commentNumber;
+        this.commentNumber = commentNumber;
     }
 
     /**

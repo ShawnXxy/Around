@@ -8,7 +8,7 @@
     <color name="style_color_primary_dark">#3e8237</color>
     <color name="style_color_accent">#2f936c</color>
 
-    <color name="fab_color_pressed">#007787</color>
+    <color name="fab_color_pressed">#006633</color>
     <color name="fab_color_shadow">#44000000</color>
 
     <color name="btn_default_light_normal">#00000000</color>
@@ -17,7 +17,7 @@
     <color name="btn_send_pressed">#006633</color>
     <color name="btn_default_shadow">#99000000</color>
     <color name="btn_context_menu_normal">#ffffff</color>
-    <color name="btn_context_menu_pressed">#40000000</color>
+    <color name="btn_context_menu_pressed">#006633</color>
     <color name="btn_context_menu_text_red">#ffff0000</color>
 
     <color name="text_like_counter">#2b5a83</color>
