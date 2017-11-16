@@ -33,9 +33,9 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        /**
-         *  Check session
-         */
+	    /**
+		 *  Check session
+		 */
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
 
@@ -55,6 +55,10 @@ public class EventActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 	    final DrawerLayout drawerLayout = findViewById(R.id.root);
+
+	    // Remove text title in header
+	    setSupportActionBar(toolbar);
+	    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 	    ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 	    drawerLayout.setDrawerListener(actionBarDrawerToggle);
