@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ReportEventActivity">
+    tools:context=".activity.PostActivity">
     <!--Top header-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:textColor="#FFFFFF"
             android:text="@string/new_events"/>
         <ImageView
-            android:id="@+id/img_event_report"
+            android:id="@+id/img_post_report"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/send"
@@ -31,7 +31,7 @@
             android:layout_marginEnd="15dp" />
     </RelativeLayout>
     <EditText
-        android:id="@+id/edit_text_event_title"
+        android:id="@+id/edit_text_post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -48,16 +48,16 @@
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:layout_below="@+id/edit_text_event_title"
+        android:layout_below="@+id/edit_text_post_title"
         android:background="#FFE6E6EB" />
     <EditText
-        android:id="@+id/edit_text_event_content"
+        android:id="@+id/edit_text_post_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
-        android:layout_below="@+id/edit_text_event_title"
+        android:layout_below="@+id/edit_text_post_title"
         android:textColor="#FF2A2C30"
         android:fontFamily="Roboto"
         android:textSize="16sp"
@@ -66,10 +66,10 @@
         android:hint="See something, say something" />
     <!--// Image preview box-->
     <ImageView
-        android:id="@+id/img_event_picture_capture"
+        android:id="@+id/img_post_picture_capture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_text_event_content"
+        android:layout_below="@+id/edit_text_post_content"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:paddingLeft="10dp"
@@ -82,14 +82,14 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true">
         <ImageView
-            android:id="@+id/img_event_location"
+            android:id="@+id/img_post_location"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:src="@drawable/location" />
         <EditText
-            android:id="@+id/edit_text_event_location"
-            android:layout_toRightOf="@+id/img_event_location"
+            android:id="@+id/edit_text_post_location"
+            android:layout_toRightOf="@+id/img_post_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -104,7 +104,7 @@
             android:paddingRight="70dp"
             android:hint="Location" />
         <ImageView
-            android:id="@+id/img_event_camera"
+            android:id="@+id/img_post_camera"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/camera"
@@ -124,11 +124,3 @@
         <!--app:menu="@menu/event_navigation_items" />-->
 </RelativeLayout>
 
-    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context="site.shawnxxy.eventreporter.activity.ReportEventActivity">-->
-
-<!--</android.support.constraint.ConstraintLayout>-->

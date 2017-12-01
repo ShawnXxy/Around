@@ -11,7 +11,7 @@
 //import java.util.List;
 //
 //import site.shawnxxy.eventreporter.utils.DataService;
-//import site.shawnxxy.eventreporter.constructor.Event;
+//import site.shawnxxy.eventreporter.constructor.Post;
 //import site.shawnxxy.eventreporter.R;
 //
 ///**
@@ -21,7 +21,7 @@
 //public class EventAdapter extends BaseAdapter {
 //
 //    Context context;
-//    List<Event> eventData;
+//    List<Post> eventData;
 //
 //    public EventAdapter(Context context) {
 //        this.context = context;
@@ -34,7 +34,7 @@
 //    }
 //
 //    @Override
-//    public Event getItem(int position) {
+//    public Post getItem(int position) {
 //        return eventData.get(position);
 //    }
 //
@@ -47,14 +47,14 @@
 //    public View getView(int position, View convertView, ViewGroup parent) {
 //        if (convertView == null) {
 //            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            convertView = inflater.inflate(R.layout.event_item, parent, false);
+//            convertView = inflater.inflate(R.layout.post_item, parent, false);
 //        }
 //
 //        TextView eventTitle = (TextView) convertView.findViewById(R.id.event_title);
 //        TextView eventAddress = (TextView) convertView.findViewById(R.id.event_address);
 //        TextView eventDescription = (TextView) convertView.findViewById(R.id.event_description);
 ////        ImageView eventImage = (ImageView) convertView.findViewById(R.id.event_thumbnail);
-//        Event event = eventData.get(position);
+//        Post event = eventData.get(position);
 //        eventTitle.setText(event.getTitle());
 //        eventAddress.setText(event.getAddress());
 //        eventDescription.setText(event.getDescription());

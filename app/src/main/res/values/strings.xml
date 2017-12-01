@@ -15,7 +15,7 @@
     <string name="new_events">Report</string>
     <string name="comment">Comments</string>
 
-    <!--for event list menu-->
+    <!--postvent list menu-->
     <string name="repost">FORWARD</string>
     <string name="share">SHARE</string>
     <string name="report">REPORT</string>

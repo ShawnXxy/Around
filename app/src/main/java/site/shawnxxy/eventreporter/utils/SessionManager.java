@@ -7,7 +7,7 @@ import android.content.SharedPreferences.Editor;
 
 import java.util.HashMap;
 
-import site.shawnxxy.eventreporter.activity.MainActivity;
+import site.shawnxxy.eventreporter.activity.LoginActivity;
 
 /**
  * Created by ShawnX on 10/4/17.
@@ -59,7 +59,7 @@ public class SessionManager {
      */
     public void checkLogin() {
         if (!this.isLoggedIn()) {
-            Intent i = new Intent(context, MainActivity.class);
+            Intent i = new Intent(context, LoginActivity.class);
             // Closing all activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             // Add new flag to start new activity
@@ -91,7 +91,7 @@ public class SessionManager {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(context, MainActivity.class);
+        Intent i = new Intent(context, LoginActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // Add new Flag to start new Activity

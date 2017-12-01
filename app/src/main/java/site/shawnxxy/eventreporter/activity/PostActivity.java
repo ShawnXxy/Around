@@ -30,18 +30,18 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import site.shawnxxy.eventreporter.constructor.Post;
 import site.shawnxxy.eventreporter.utils.AlertDialogManager;
-import site.shawnxxy.eventreporter.constructor.Event;
 import site.shawnxxy.eventreporter.utils.LocationTracker;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.utils.Utils;
 
-public class ReportEventActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity {
 
     /**
      *  To gather user information and push to firebase database, create and initialize UI widgets
      */
-    private static final String TAG = ReportEventActivity.class.getSimpleName();
+    private static final String TAG = PostActivity.class.getSimpleName();
     private EditText mEditTextLocation;
     private EditText mEditTextTitle;
     private EditText mEditTextContent;
@@ -56,7 +56,7 @@ public class ReportEventActivity extends AppCompatActivity {
     private Activity mActivity;
     // Add image preview
     private static int RESULT_LOAD_IMAGE = 1;
-    private ImageView img_event_picture;
+    private ImageView img_post_picture;
     private Uri mImgUri;
     // Upload connected pictures to Firebase Storage
     private FirebaseStorage storage;
@@ -68,13 +68,13 @@ public class ReportEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_event);
+        setContentView(R.layout.activity_post);
 
-        mEditTextLocation = (EditText) findViewById(R.id.edit_text_event_location);
-        mEditTextTitle = (EditText) findViewById(R.id.edit_text_event_title);
-        mEditTextContent = (EditText) findViewById(R.id.edit_text_event_content);
-        mImageViewCamera = (ImageView) findViewById(R.id.img_event_camera);
-        mImageViewSend = (ImageView) findViewById(R.id.img_event_report);
+        mEditTextLocation = (EditText) findViewById(R.id.edit_text_post_location);
+        mEditTextTitle = (EditText) findViewById(R.id.edit_text_post_title);
+        mEditTextContent = (EditText) findViewById(R.id.edit_text_post_content);
+        mImageViewCamera = (ImageView) findViewById(R.id.img_post_camera);
+        mImageViewSend = (ImageView) findViewById(R.id.img_post_report);
         database = FirebaseDatabase.getInstance().getReference();
         // Add click event to camera icon, trigger event to choose pictures
         mImageViewSend.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class ReportEventActivity extends AppCompatActivity {
             final String content = mEditTextContent.getText().toString();
             @Override
             public void onClick(View v) {
-                String key = uploadEvent(); // function defined in below
+                String key = uploadPost(); // function defined in below
                 if (mImgUri != null) {
                     uploadImage(key);
                     mImgUri = null;
@@ -93,8 +93,8 @@ public class ReportEventActivity extends AppCompatActivity {
         /**
          *  Add image preview
          */
-        img_event_picture = (ImageView) findViewById(R.id.img_event_picture_capture); // add image preview
-        mImageViewLocation = (ImageView) findViewById(R.id.img_event_location);
+        img_post_picture = (ImageView) findViewById(R.id.img_post_picture_capture); // add image preview
+        mImageViewLocation = (ImageView) findViewById(R.id.img_post_location);
         // upload picture
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
@@ -173,28 +173,28 @@ public class ReportEventActivity extends AppCompatActivity {
      * @return uploadEvent()
      * @return uploadImage()
      */
-    private String uploadEvent() {
+    private String uploadPost() {
         String title = mEditTextTitle.getText().toString();
         String location = mEditTextLocation.getText().toString();
         String description = mEditTextContent.getText().toString();
         if (location.equals("") || description.equals("") || title.equals("") || Utils.username == null) {
-            alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
+            alert.showAlertDialog(PostActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
             return null;
         }
-        //create event instance
-        Event event = new Event();
-        event.setTitle(title);
-        event.setAddress(location);
-        event.setDescription(description);
-        event.setTime(System.currentTimeMillis());
-        event.setUsername(Utils.username);
-        String key = database.child("events").push().getKey();
-        event.setId(key);
-        database.child("events").child(key).setValue(event, new DatabaseReference.CompletionListener() {
+        //create post instance
+        Post post = new Post();
+        post.setTitle(title);
+        post.setAddress(location);
+        post.setDescription(description);
+        post.setTime(System.currentTimeMillis());
+        post.setUsername(Utils.username);
+        String key = database.child("posts").push().getKey();
+        post.setId(key);
+        database.child("posts").child(key).setValue(post, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError != null) {
-                    alert.showAlertDialog(ReportEventActivity.this, "Post failed..", "Please check your network status!", false);
+                    alert.showAlertDialog(PostActivity.this, "Post failed..", "Please check your network status!", false);
 //                    Toast toast = Toast.makeText(getBaseContext(), "Failed to post! Please check your network status.", Toast.LENGTH_SHORT);
 //                    toast.show();
                 } else {
@@ -203,15 +203,15 @@ public class ReportEventActivity extends AppCompatActivity {
                     mEditTextTitle.setText("");
                     mEditTextLocation.setText("");
                     mEditTextContent.setText("");
-                    // Go back to main event activity when post completed
-                    Intent intent = new Intent(ReportEventActivity.this, EventActivity.class);
+                    // Go back to main post activity when post completed
+                    Intent intent = new Intent(PostActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
         });
         return key;
     }
-    private void uploadImage(final String eventId) {
+    private void uploadImage(final String postId) {
         if (mImgUri == null) {
             return;
         }
@@ -222,15 +222,15 @@ public class ReportEventActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                alert.showAlertDialog(ReportEventActivity.this, "Something goes wrong...", "Please try again!", false);
+                alert.showAlertDialog(PostActivity.this, "Something goes wrong...", "Please try again!", false);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 @SuppressWarnings("VisibleForTests")
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Log.i(TAG, "upload successfully" + eventId);
-                database.child("events").child(eventId).child("imgUri").setValue(downloadUrl.toString());
+                Log.i(TAG, "upload successfully" + postId);
+                database.child("posts").child(postId).child("imgUri").setValue(downloadUrl.toString());
             }
         });
     }
@@ -263,8 +263,8 @@ public class ReportEventActivity extends AppCompatActivity {
         try {
             if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
                 Uri selectedImage = data.getData();
-                img_event_picture.setVisibility(View.VISIBLE);
-                img_event_picture.setImageURI(selectedImage);
+                img_post_picture.setVisibility(View.VISIBLE);
+                img_post_picture.setImageURI(selectedImage);
                 mImgUri = selectedImage;
             }
         } catch (Exception ex) {

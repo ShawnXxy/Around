@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import site.shawnxxy.eventreporter.constructor.Comment;
-import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.constructor.Post;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.utils.AlertDialogManager;
 import site.shawnxxy.eventreporter.utils.Utils;
@@ -46,7 +46,7 @@ public class CommentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comment);
 
         Intent intent = getIntent();
-        final String eventId = intent.getStringExtra("EventID");
+        final String postId = intent.getStringExtra("PostID");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.comment_recycler_view);
         mEditTextComment = (EditText) findViewById(R.id.comment_edittext);
@@ -61,15 +61,15 @@ public class CommentActivity extends AppCompatActivity {
         mCommentSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendComment(eventId);
+                sendComment(postId);
                 mEditTextComment.setText("");
-                getData(eventId, commentAdapter);
+                getData(postId, commentAdapter);
             }
         });
-        getData(eventId, commentAdapter); // getData() defined below
+        getData(postId, commentAdapter); // getData() defined below
     }
 
-    private void getData(final String eventId, final CommentAdapter commentAdapter) {
+    private void getData(final String postId, final CommentAdapter commentAdapter) {
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -77,18 +77,18 @@ public class CommentActivity extends AppCompatActivity {
                 List<Comment> comments = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : commentSnapshot.getChildren()) {
                     Comment comment = noteDataSnapshot.getValue(Comment.class);
-                    if(comment.getEventId().equals(eventId)) {
+                    if(comment.getPostId().equals(postId)) {
                         comments.add(comment);
                     }
                 }
-                mDatabaseReference.getRef().child("events").child(eventId).child("commentNumber").setValue(comments.size());
+                mDatabaseReference.getRef().child("posts").child(postId).child("commentNumber").setValue(comments.size());
                 commentAdapter.setComments(comments);
 
-                DataSnapshot eventSnapshot = dataSnapshot.child("events");
+                DataSnapshot eventSnapshot = dataSnapshot.child("posts");
                 for (DataSnapshot noteDataSnapshot : eventSnapshot.getChildren()) {
-                    Event event = noteDataSnapshot.getValue(Event.class);
-                    if(event.getId().equals(eventId)) {
-                        commentAdapter.setEvent(event);
+                    Post post = noteDataSnapshot.getValue(Post.class);
+                    if(post.getId().equals(postId)) {
+                        commentAdapter.setPost(post);
                         break;
                     }
                 }
@@ -106,16 +106,16 @@ public class CommentActivity extends AppCompatActivity {
 
     /**
      *  Add Button click event
-     * @param eventId
+     * @param postId
      */
-    private void sendComment(final String eventId) {
+    private void sendComment(final String postId) {
         final String description = mEditTextComment.getText().toString();
         if (description.equals("")) {
             return;
         }
         Comment comment = new Comment();
         comment.setCommenter(Utils.username);
-        comment.setEventId(eventId);
+        comment.setPostId(postId);
         comment.setDescription(description);
         comment.setTime(System.currentTimeMillis());
         String key = mDatabaseReference.child("comments").push().getKey();

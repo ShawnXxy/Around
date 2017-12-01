@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_events"
         android:enabled="true"
-        android:icon="@drawable/event"
+        android:icon="@drawable/post"
         android:title=""
         app:showAsAction="ifRoom" />
     <item

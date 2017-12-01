@@ -4,7 +4,7 @@ package site.shawnxxy.eventreporter.constructor;
  * Created by ShawnX on 8/27/17.
  */
 
-public class Event {
+public class Post {
     /**
      * All data for a event.
      */
@@ -17,7 +17,7 @@ public class Event {
     private String username;
     private String imgUri;
     private int commentNumber;
-    public Event() {
+    public Post() {
 
     }
 
@@ -84,14 +84,14 @@ public class Event {
     /**
      * Constructor
      */
-    public Event(String title, String address, String description) {
+    public Post(String title, String address, String description) {
         this.title = title;
         this.address = address;
         this.description = description;
     }
 
     /**
-     * Getters for private attributes of Event class.
+     * Getters for private attributes of Post class.
      */
     public String getTitle() { return this.title; }
     public String getAddress() { return this.address; }

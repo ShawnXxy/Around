@@ -1,242 +1,135 @@
 package site.shawnxxy.eventreporter.activity;
 
-//import android.app.Fragment;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import site.shawnxxy.eventreporter.utils.AlertDialogManager;
+import butterknife.BindView;
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.constructor.User;
+import site.shawnxxy.eventreporter.fragments.PostsFragment;
 import site.shawnxxy.eventreporter.utils.SessionManager;
-import site.shawnxxy.eventreporter.utils.Utils;
-//import site.shawnxxy.eventreporter.fragments.EventFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    // to show multiple fragments in one activity
-//    private EventFragment mListFragment;
-//    private CommentFragment mGridFragment;
+    // Session Manager Class
+    SessionManager session;
 
-    //  For Login Activity
-    private EditText mUsernameEditText;
-    private EditText mPasswordEditText;
-    private Button mSubmitButton;
-    private Button mRegisterButton;
-    private DatabaseReference mDatabase;
-    // Shared Preferences
-    private SessionManager session;
-    // Alert Dialog Manager
-    private AlertDialogManager alert = new AlertDialogManager();
+    private Fragment mPostsFragment;
+
+    @BindView(R.id.coordinatorlayout_post)
+    CoordinatorLayout clContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("Life cycle test", "We are at onCreate()"); // TEST in log
 
-        /**
-         *  For Sessions using Shared Preferences
-         */
+	    /**
+		 *  Check session
+		 */
         session = new SessionManager(getApplicationContext());
+        session.checkLogin();
 
         /**
-         *  For Firebase
+         *  Add the fragment to event activity dynamically
          */
-        // Firebase uses singleton to initialize the sdk
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mUsernameEditText = (EditText) findViewById(R.id.editTextLogin);
-        mPasswordEditText = (EditText) findViewById(R.id.editTextPassword);
-        mSubmitButton = (Button) findViewById(R.id.submit);
-        mRegisterButton = (Button) findViewById(R.id.register);
-        //admob
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//        myRef.setValue("Hello, World!");
+        // Create ReportEventFragment
+        if (mPostsFragment == null) {
+	        mPostsFragment = new PostsFragment();
+        }
+        // Add Fragment to the fragment
+        getSupportFragmentManager().beginTransaction().add(R.id.coordinatorlayout_post, mPostsFragment).commit();
 
         /**
-         *  Implements button registration click event
+         *  Drawer nav menu
          */
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String username = mUsernameEditText.getText().toString();
-                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
-                final User user = new User(username, password, System.currentTimeMillis());
-                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (username.trim().length() > 0 && password.trim().length() > 0) {
-                            if (dataSnapshot.hasChild(username)) {
-                                alert.showAlertDialog(MainActivity.this, "Registration failed..", "Username is already registered, please change one.", false);
-//                                Toast.makeText(getBaseContext(),"Username is already registered, please change one", Toast.LENGTH_SHORT).show();
-                            } else if (!username.equals("") && !password.equals("")) {
-                                // put username as key to set value
-                                mDatabase.child("users").child(user.getUsername()).setValue(user);
-                                Toast.makeText(getBaseContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            alert.showAlertDialog(MainActivity.this, "Registration failed..", "Please input valid username or password and try again!", false);
-//                            Toast.makeText(getBaseContext(),"Please input valid username or password and try again!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+	    final DrawerLayout drawerLayout = findViewById(R.id.root);
 
-                    }
-                });
-            }
-        }); // END of setOnClickListener()
+	    // Remove text title in header
+	    setSupportActionBar(toolbar);
+	    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        /**
-         *  Implements login click event
-         */
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String username = mUsernameEditText.getText().toString();
-                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
-                // Check firebase data
-                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (username.trim().length() > 0 && password.trim().length() > 0) {
-                            if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
-                                Log.i("Your log", "You successfully login");
-                                session.createLoginSession(username, password);
-                                Intent myIntent = new Intent(MainActivity.this, EventActivity.class);
-                                Utils.username = username;
-                                startActivity(myIntent);
-                                finish();
-                            } else {
-                                alert.showAlertDialog(MainActivity.this, "Login failed..", "Incorrect Username/Password", false);
-//                                Toast.makeText(getBaseContext(),"Incorrect username or password. Please try again or register.", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            alert.showAlertDialog(MainActivity.this, "Login failed..", "Please input valid username or password and try again!", false);
-//                            Toast.makeText(getBaseContext(),"Please input valid username or password and try again!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+	    ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+	    drawerLayout.setDrawerListener(actionBarDrawerToggle);
+	    actionBarDrawerToggle.syncState();
 
-                    }
-                });
-            }
-        });
+	    NavigationView navigationView = findViewById(R.id.nav_view);
+	    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+		    @Override
+		    public boolean onNavigationItemSelected(MenuItem item) {
+			    drawerLayout.closeDrawers();
+			    int id = item.getItemId();
 
-        /**
-         *  show multiple fragments in one activity
-         */
-//        //add list view
-//        mListFragment = new EventFragment();
-//        getSupportFragmentManager().beginTransaction().add(R.id.event_container, mListFragment).commit();
-//        //add Gridview
-//        if (isTablet()) {
-//            mGridFragment = new CommentFragment();
-//            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
-//        }
-//        //Show different fragments based on screen size.
-//        if (findViewById(R.id.fragment_container) != null) {
-//            Fragment fragment = isTablet() ? new CommentFragment() : new EventFragment();
-//            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
-//        }
+			    if (id == R.id.menu_feed) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_photo_you_liked) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_news) {
+			    	// Do something
+			    } else if (id == R.id.menu_popular) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_photos_nearby) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_rests_nearby) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_events_nearby) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_settings) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_logout) {
+			    	// Do something
+				    return true;
+			    } else if (id == R.id.menu_about) {
+			    	// Do something
+					return true;
+			    }
+			    return false;
+		    }
+	    });
 
-        /**
-         *  Below section is not needed for Fragment
-         */
-//        // Get ListView object from xml.
-//        ListView eventListView = (ListView) findViewById(R.id.event_list);
-//        // Initialize an adapter.
-//        EventAdapter adapter = new EventAdapter(this);
-//        // Assign adapter to ListView.
-//        eventListView.setAdapter(adapter);
-//        // Initialize an adapter. Used for the dummy function test below
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                this,
-//                R.layout.event_item,
-//                R.id.event_name,
-//                getEventNames()
+//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+//        // Set item click listener to the menu items
+//        bottomNavigationView.setOnNavigationItemSelectedListener(
+//                new BottomNavigationView.OnNavigationItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.action_profile:
+//                                getSupportFragmentManager().beginTransaction()
+//                                        .replace(R.id.fragment_container, new PostsFragment()).commit();
+//                                break;
+//                            case R.id.action_events:
+//                        }
+//                        return false;
+//                    }
+//                }
 //        );
+    } // End of onCreate()
 
-    } // END OF onCreate()
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.menu_simple_nav_drawer_and_view, menu);
+//		return true;
+//	}
 
-//    private boolean isTablet() {
-//        return (getApplicationContext().getResources().getConfiguration().screenLayout &
-//                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    // Username used by fragment
+//    public String getUsername() {
+//        return username;
 //    }
-
-//    @Override
-//    public void onItemSelected(int position) { // defined in CommentFragment
-//        mGridFragment.onItemSelected(position);
-//    }
-//
-//    @Override
-//    public void onCommentSelected(int position) {
-//        mListFragment.onItemSelected(position);
-//    }
-
-    /**
-     * A dummy function to get fake event names.
-     *
-     * @return an array of fake event names.
-     */
-//    private String[] getEventNames() {
-//        String[] names = {
-//                "Event1", "Event2", "Event3",
-//                "Event4", "Event5", "Event6",
-//                "Event7", "Event8", "Event9",
-//                "Event10", "Event11", "Event12"};
-//        return names;
-//    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e("Life cycle test", "We are at onStart()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.e("Life cycle test", "We are at onResume()");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e("Life cycle test", "We are at onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.e("Life cycle test", "We are at onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e("Life cycle test", "We are at onDestroy()");
-    }
-
-
 }

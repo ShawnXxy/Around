@@ -29,18 +29,16 @@ import java.util.Map;
 
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.activity.CommentActivity;
-import site.shawnxxy.eventreporter.activity.EventActivity;
-import site.shawnxxy.eventreporter.constructor.Comment;
-import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.constructor.Post;
 import site.shawnxxy.eventreporter.utils.Utils;
 
 /**
  * Created by ShawnX on 9/10/17.
  */
 
-//public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder>{
-public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<Event> eventList;
+//public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder>{
+public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private List<Post> postList;
     //  admob CardView
     private Context context;
     private static final int TYPE_ITEM = 0;
@@ -55,31 +53,31 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      *
      *  Implement cardview for admob
-     * @param events
+     * @param posts
      * @param context
      */
     // constructor
-    public EventListAdapter(List<Event> events, final Context context) {
-//        eventList = events;
+    public PostListAdapter(List<Post> posts, final Context context) {
+//        postList = posts;
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        // make new events shown on the top
-        Collections.sort(events, new Comparator<Event>() {
+        // make new posts shown on the top
+        Collections.sort(posts, new Comparator<Post>() {
             @Override
-            public int compare(Event a, Event b) {
+            public int compare(Post a, Post b) {
                 return (int) (b.getTime() - a.getTime());
             }
         });
-        eventList = new ArrayList<>();
+        postList = new ArrayList<>();
         int count = 0;
         // admob frequencies
-        for (int i = 0; i < events.size(); i++) {
+        for (int i = 0; i < posts.size(); i++) {
             if (i % 5 == 1) {
                 //Use a set to record advertisement position
                 map.put(i + count, new NativeExpressAdView(context));
                 count++;
-                eventList.add(new Event());
+                postList.add(new Post());
             }
-            eventList.add(events.get(i));
+            postList.add(posts.get(i));
         }
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(
@@ -88,8 +86,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public Map<Integer, NativeExpressAdView> getMap() {
         return map;
     }
-    public List<Event> getEventList() {
-        return eventList;
+    public List<Post> getPostList() {
+        return postList;
     }
 
     /**
@@ -104,12 +102,12 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView description;
         public TextView time;
         public ImageView imgview;
-        // Extra views for Like and Comments and Repost
+        // Extra views for Like and Comments
         public ImageButton btnLike;
         public ImageButton btnComment;
         public ImageButton btnMore;
-        public TextView good_number;
-        public TextView eventCommentNumber;
+        public TextView like_number;
+        public TextView postCommentNumber;
 
 
         public View layout;
@@ -118,17 +116,17 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             layout = v;
             // Views for event content
             username = (TextView) v.findViewById(R.id.comment_main_user);
-            title = (TextView) v.findViewById(R.id.event_item_title);
-            location = (TextView) v.findViewById(R.id.event_item_location);
-            description = (TextView) v.findViewById(R.id.event_item_description);
-            time = (TextView) v.findViewById(R.id.event_item_time);
-            imgview = (ImageView) v.findViewById(R.id.event_item_img);
+            title = (TextView) v.findViewById(R.id.post_item_title);
+            location = (TextView) v.findViewById(R.id.post_item_location);
+            description = (TextView) v.findViewById(R.id.post_item_description);
+            time = (TextView) v.findViewById(R.id.post_item_time);
+            imgview = (ImageView) v.findViewById(R.id.post_item_img);
             // Extra views for Like and Comments and Repost
             btnLike= (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
             btnMore = (ImageButton) v.findViewById(R.id.btnMore);
-            good_number = (TextView) v.findViewById(R.id.event_like_number);
-            eventCommentNumber = (TextView) v.findViewById(R.id.event_comment_number);
+            like_number = (TextView) v.findViewById(R.id.post_like_number);
+            postCommentNumber = (TextView) v.findViewById(R.id.post_comment_number);
         }
     }
     public class ViewHolderAds extends RecyclerView.ViewHolder {
@@ -147,7 +145,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         View v;
         switch (viewType) {
             case TYPE_ITEM:
-                v = inflater.inflate(R.layout.event_list_item, parent, false);
+                v = inflater.inflate(R.layout.post_list_item, parent, false);
                 viewHolder = new ViewHolder(v);
                 break;
             case TYPE_ADS:
@@ -166,19 +164,19 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      */
     boolean isLike = false;
     private void configureItemView(final ViewHolder holder, final int position) {
-        final Event event = eventList.get(position);
-        holder.title.setText(event.getTitle());
-        holder.username.setText(event.getUsername());
-        String[] locations = event.getAddress().split(",");
+        final Post post = postList.get(position);
+        holder.title.setText(post.getTitle());
+        holder.username.setText(post.getUsername());
+        String[] locations = post.getAddress().split(",");
         holder.location.setText(locations[1] + "," + locations[2]);
-        holder.description.setText(event.getDescription());
-        holder.time.setText(Utils.timeTransformer(event.getTime()));
+        holder.description.setText(post.getDescription());
+        holder.time.setText(Utils.timeTransformer(post.getTime()));
         // Get Like number and set the number to the textview
-        holder.good_number.setText(String.valueOf(event.getLike()));
-        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
+        holder.like_number.setText(String.valueOf(post.getLike()));
+        holder.postCommentNumber.setText(String.valueOf(post.getCommentNumber()));
 
-        if (event.getImgUri() != null) {
-            final String url = event.getImgUri();
+        if (post.getImgUri() != null) {
+            final String url = post.getImgUri();
             holder.imgview.setVisibility(View.VISIBLE);
             new AsyncTask<Void, Void, Bitmap>(){
                 @Override
@@ -193,7 +191,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             holder.imgview.setVisibility(View.GONE);
         }
-        // Add click event listener to Like
+        // Add click post listener to Like
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,18 +203,18 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     isLike = true;
                     int adapterPosition = holder.getAdapterPosition();
                     notifyItemChanged(adapterPosition, ACTION_LIKE_BUTTON_CLICKED);
-//                    if (context instanceof EventActivity) {
-//                        ((EventActivity) context).showLikedSnackbar();
+//                    if (context instanceof MainActivity) {
+//                        ((MainActivity) context).showLikedSnackbar();
 //                    }
                 }
-                databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("posts").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Event recordedevent = snapshot.getValue(Event.class);
-                            if (recordedevent.getId().equals(event.getId())) {
-                                int number = recordedevent.getLike();
-                                holder.good_number.setText(String.valueOf(number + 1));
+                            Post recordedpost = snapshot.getValue(Post.class);
+                            if (recordedpost.getId().equals(post.getId())) {
+                                int number = recordedpost.getLike();
+                                holder.like_number.setText(String.valueOf(number + 1));
                                 snapshot.getRef().child("like").setValue(number + 1);
                                 break;
                             }
@@ -233,8 +231,8 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CommentActivity.class);
-                String eventId = event.getId();
-                intent.putExtra("EventID", eventId);
+                String postId = post.getId();
+                intent.putExtra("PostID", postId);
                 context.startActivity(intent);
             }
         });
@@ -278,7 +276,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 configureAdsView(viewHolderAds, position);
                 break;
         }
-//        final Event event = eventList.get(position);
+//        final Post event = postList.get(position);
 //        holder.title.setText(event.getTitle());
 //        String[] locations = event.getAddress().split(",");
 //        holder.location.setText(locations[1] + "," + locations[2]);
@@ -305,27 +303,27 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return eventList.size();
+        return postList.size();
     }
 
     /**
      *  Return the view back to listview
      * @param position
-     * @param event
+     * @param post
      */
-    public void add(int position, Event event) {
-        eventList.add(position, event);
+    public void add(int position, Post post) {
+        postList.add(position, post);
         notifyItemInserted(position);
     }
     public void remove(int position) {
-        eventList.remove(position);
+        postList.remove(position);
         notifyItemRemoved(position);
     }
 //    @Override
 //    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        LayoutInflater inflater = LayoutInflater.from(
 //                parent.getContext());
-//        View v = inflater.inflate(R.layout.event_list_item, parent, false);
+//        View v = inflater.inflate(R.layout.post_list_item, parent, false);
 //        ViewHolder vh = new ViewHolder(v);
 //        return vh;
 //    }

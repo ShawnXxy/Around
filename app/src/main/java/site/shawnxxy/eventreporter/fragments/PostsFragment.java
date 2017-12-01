@@ -27,15 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import site.shawnxxy.eventreporter.R;
-import site.shawnxxy.eventreporter.activity.ReportEventActivity;
-import site.shawnxxy.eventreporter.adapter.EventListAdapter;
-import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.activity.PostActivity;
+import site.shawnxxy.eventreporter.adapter.PostListAdapter;
+import site.shawnxxy.eventreporter.constructor.Post;
 //import android.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsFragment extends Fragment {
+public class PostsFragment extends Fragment {
 
     // For admob
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1072772517";
@@ -43,36 +43,36 @@ public class EventsFragment extends Fragment {
     // call recycler view in fragment
     private RecyclerView recyclerView;
 //    private RecyclerView.Adapter mAdapter;
-    private EventListAdapter mAdapter;
+    private PostListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseReference database;
-    private List<Event> events;
+    private List<Post> posts;
 
-    public EventsFragment() {
+    public PostsFragment() {
         // Required empty public constructor
     }
 
     /**
-     *  Add Connections between Event Activity and EventReportActivity
+     *  Add Connections between Post Activity and EventReportActivity
      */
     private FloatingActionButton mImageViewAdd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_events, container, false);
-        View view = inflater.inflate(R.layout.fragment_events, container, false);
-        mImageViewAdd = (FloatingActionButton) view.findViewById(R.id.img_event_add);
+//        return inflater.inflate(R.layout.fragment_posts, container, false);
+        View view = inflater.inflate(R.layout.fragment_posts, container, false);
+        mImageViewAdd = (FloatingActionButton) view.findViewById(R.id.img_post_add);
         mImageViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent eventReportIntent = new Intent(getActivity(), ReportEventActivity.class);
-                startActivity(eventReportIntent);
+                Intent postIntent = new Intent(getActivity(), PostActivity.class);
+                startActivity(postIntent);
             }
         });
 
         // call recycler view in fragment
-        recyclerView = (RecyclerView) view.findViewById(R.id.event_recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.post_recycler_view);
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -83,16 +83,16 @@ public class EventsFragment extends Fragment {
     }
 
     public void setAdapter() {
-        events = new ArrayList<>();
-        database.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
+        posts = new ArrayList<>();
+        database.child("posts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                    Event event = noteDataSnapshot.getValue(Event.class);
-                    events.add(event);
+                    Post post = noteDataSnapshot.getValue(Post.class);
+                    posts.add(post);
                 }
                 // Add context to list adapter
-                mAdapter = new EventListAdapter(events, getActivity());
+                mAdapter = new PostListAdapter(posts, getActivity());
                 recyclerView.setAdapter(mAdapter);
                 setUpAndLoadNativeExpressAds();
             }
@@ -112,7 +112,7 @@ public class EventsFragment extends Fragment {
             public void run() {
                 final float scale = getActivity().getResources().getDisplayMetrics().density;
                 // Set the ad size and ad unit ID for each Native Express ad in the items list.
-                for (int i = 0; i < mAdapter.getEventList().size(); i ++) {
+                for (int i = 0; i < mAdapter.getPostList().size(); i ++) {
                     if (mAdapter.getMap().containsKey(i)) {
                         final NativeExpressAdView adView = mAdapter.getMap().get(i);
                         final CardView cardView = (CardView) getActivity().findViewById(R.id.ad_card_view);
@@ -141,12 +141,17 @@ public class EventsFragment extends Fragment {
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 // The previous Native Express ad failed to load. Call this method again to load the next ad in the items list.
-                Log.e("MainActivity", "The previous Native Express ad failed to load. Attempting to"
+                Log.e("LoginActivity", "The previous Native Express ad failed to load. Attempting to"
                         + " load the next Native Express ad in the items list.");
             }
         });
         adView.loadAd(new AdRequest.Builder().build());
     }
 
+//    @BindView(R.id.events_fragment)
+//    CoordinatorLayout eventsfragment;
+//    public void showLikedSnackbar() {
+//        Snackbar.make(eventsfragment, "Liked!", Snackbar.LENGTH_SHORT).show();
+//    }
 
 }

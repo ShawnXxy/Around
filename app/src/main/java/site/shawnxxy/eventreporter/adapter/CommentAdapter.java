@@ -2,7 +2,6 @@ package site.shawnxxy.eventreporter.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import site.shawnxxy.eventreporter.constructor.Comment;
-import site.shawnxxy.eventreporter.constructor.Event;
+import site.shawnxxy.eventreporter.constructor.Post;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.utils.Utils;
-import site.shawnxxy.eventreporter.activity.CommentActivity;
 
 import static site.shawnxxy.eventreporter.utils.Utils.timeTransformer;
 
@@ -41,7 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final static int TYPE_COMMENT = 1;
 
     private List<Comment> commentList;
-    private Event event;
+    private Post post;
 
     private DatabaseReference databaseReference;
     private LayoutInflater inflater;
@@ -53,8 +51,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setEvent(final Event event) {
-        this.event = event;
+    public void setPost(final Post post) {
+        this.post = post;
     }
 
     public void setComments(final List<Comment> comments) {
@@ -71,33 +69,33 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return commentList.size() + 1;
     }
 
-    public class EventViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventUser;
-        public TextView eventTitle;
-        public TextView eventLocation;
-        public TextView eventDescription;
-        public TextView eventTime;
-        public ImageView eventImgView;
+    public class PostViewHolder extends RecyclerView.ViewHolder {
+        public TextView postUser;
+        public TextView postTitle;
+        public TextView postLocation;
+        public TextView postDescription;
+        public TextView postTime;
+        public ImageView postImgView;
         public ImageButton btnLike;
         public ImageButton btnComment;
-        public TextView eventLikeNumber;
-        public TextView eventCommentNumber;
+        public TextView postLikeNumber;
+        public TextView postCommentNumber;
 
         public View layout;
 
-        public EventViewHolder(View v) {
+        public PostViewHolder(View v) {
             super(v);
             layout = v;
-            eventUser = (TextView) v.findViewById(R.id.comment_main_user);
-            eventTitle = (TextView) v.findViewById(R.id.event_item_title);
-            eventLocation = (TextView) v.findViewById(R.id.event_item_location);
-            eventDescription = (TextView) v.findViewById(R.id.event_item_description);
-            eventTime = (TextView) v.findViewById(R.id.event_item_time);
-            eventImgView = (ImageView) v.findViewById(R.id.event_item_img);
+            postUser = (TextView) v.findViewById(R.id.comment_main_user);
+            postTitle = (TextView) v.findViewById(R.id.post_item_title);
+            postLocation = (TextView) v.findViewById(R.id.post_item_location);
+            postDescription = (TextView) v.findViewById(R.id.post_item_description);
+            postTime = (TextView) v.findViewById(R.id.post_item_time);
+            postImgView = (ImageView) v.findViewById(R.id.post_item_img);
             btnLike = (ImageButton) v.findViewById(R.id.btnLike);
             btnComment = (ImageButton) v.findViewById(R.id.btnComment);
-            eventLikeNumber = (TextView) v.findViewById(R.id.event_like_number);
-            eventCommentNumber = (TextView) v.findViewById(R.id.event_comment_number);
+            postLikeNumber = (TextView) v.findViewById(R.id.post_like_number);
+            postCommentNumber = (TextView) v.findViewById(R.id.post_comment_number);
         }
     } // End
 
@@ -132,7 +130,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         switch (viewType) {
             case TYPE_EVENT:
                 v = inflater.inflate(R.layout.comment_main, parent, false);
-                viewHolder = new EventViewHolder(v);
+                viewHolder = new PostViewHolder(v);
                 break;
             case TYPE_COMMENT:
                 v = inflater.inflate(R.layout.comment_item, parent, false);
@@ -152,8 +150,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         switch (holder.getItemViewType()) {
             case TYPE_EVENT:
-                EventViewHolder viewHolderEvent = (EventViewHolder) holder;
-                configureEventView(viewHolderEvent);
+                PostViewHolder viewHolderPost = (PostViewHolder) holder;
+                configurePostView(viewHolderPost);
                 break;
             case TYPE_COMMENT:
                 CommentViewHolder viewHolderAds = (CommentViewHolder) holder;
@@ -171,19 +169,19 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     boolean isLike = false;
     @SuppressLint("StaticFieldLeak")
-    private void configureEventView(final EventViewHolder holder) {
-        holder.eventUser.setText(event.getUsername());
-        holder.eventTitle.setText(event.getTitle());
-        String[] locations = event.getAddress().split(",");
-        holder.eventLocation.setText(locations[1] + "," + locations[2]);
-        holder.eventDescription.setText(event.getDescription());
-        holder.eventTime.setText(timeTransformer(event.getTime()));
-        holder.eventCommentNumber.setText(String.valueOf(event.getCommentNumber()));
-        holder.eventLikeNumber.setText(String.valueOf(event.getLike()));
+    private void configurePostView(final PostViewHolder holder) {
+        holder.postUser.setText(post.getUsername());
+        holder.postTitle.setText(post.getTitle());
+        String[] locations = post.getAddress().split(",");
+        holder.postLocation.setText(locations[1] + "," + locations[2]);
+        holder.postDescription.setText(post.getDescription());
+        holder.postTime.setText(timeTransformer(post.getTime()));
+        holder.postCommentNumber.setText(String.valueOf(post.getCommentNumber()));
+        holder.postLikeNumber.setText(String.valueOf(post.getLike()));
 
-        if (event.getImgUri() != null) {
-            final String url = event.getImgUri();
-            holder.eventImgView.setVisibility(View.VISIBLE);
+        if (post.getImgUri() != null) {
+            final String url = post.getImgUri();
+            holder.postImgView.setVisibility(View.VISIBLE);
             new AsyncTask<Void, Void, Bitmap>(){
                 @Override
                 protected Bitmap doInBackground(Void... params) {
@@ -191,13 +189,13 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
-                    holder.eventImgView.setImageBitmap(bitmap);
+                    holder.postImgView.setImageBitmap(bitmap);
                 }
             }.execute();
         } else {
-            holder.eventImgView.setVisibility(View.GONE);
+            holder.postImgView.setVisibility(View.GONE);
         }
-        // Add click event listener to Like
+        // Add click post listener to Like
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,14 +206,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     holder.btnLike.setImageResource(R.drawable.ic_heart_red);
                     isLike = true;
                 }
-                databaseReference.child("events").addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("posts").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Event recordedevent = snapshot.getValue(Event.class);
-                            if (recordedevent.getId().equals(event.getId())) {
-                                int number = recordedevent.getLike();
-                                holder.eventLikeNumber.setText(String.valueOf(number + 1));
+                            Post recordedpost = snapshot.getValue(Post.class);
+                            if (recordedpost.getId().equals(post.getId())) {
+                                int number = recordedpost.getLike();
+                                holder.postLikeNumber.setText(String.valueOf(number + 1));
                                 snapshot.getRef().child("like").setValue(number + 1);
                                 break;
                             }

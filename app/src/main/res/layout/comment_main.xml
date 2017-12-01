@@ -59,7 +59,7 @@
 						android:textColor="#3F89E7"
 						android:textSize="16sp" />
 					<TextView
-						android:id="@+id/event_item_location"
+						android:id="@+id/post_item_location"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentRight="true"
@@ -67,7 +67,7 @@
 						android:textSize="16sp" />
 				</RelativeLayout>
 				<TextView
-					android:id="@+id/event_item_time"
+					android:id="@+id/post_item_time"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:paddingLeft="10dp"
@@ -77,7 +77,7 @@
 			</LinearLayout>
 		</LinearLayout>
 		<TextView
-			android:id="@+id/event_item_title"
+			android:id="@+id/post_item_title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:maxLines="1"
@@ -86,10 +86,10 @@
 			android:textSize="20sp"
 			android:textStyle="bold" />
 		<TextView
-			android:id="@+id/event_item_description"
+			android:id="@+id/post_item_description"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/event_item_title"
+			android:layout_below="@+id/post_item_title"
 			android:ellipsize="end"
 			android:fontFamily="Roboto"
 			android:maxLines="2"
@@ -100,7 +100,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			<ImageView
-				android:id="@+id/event_item_img"
+				android:id="@+id/post_item_img"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:scaleType="centerCrop" />
@@ -144,7 +144,7 @@
 			android:background="@drawable/btn_feed_action"
 			android:src="@drawable/ic_comment_outline_grey" />
 		-<TextView
-			android:id="@+id/event_comment_number"
+			android:id="@+id/post_comment_number"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:layout_toRightOf="@id/btnComment"
@@ -176,7 +176,7 @@
 				android:inAnimation="@anim/slide_in_likes_counter"
 				android:outAnimation="@anim/slide_out_likes_counter">
 				<TextView
-					android:id="@+id/event_like_number"
+					android:id="@+id/post_like_number"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="0"
