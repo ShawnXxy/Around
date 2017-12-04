@@ -1,7 +1,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/events_fragment"
+    android:id="@+id/posts_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="site.shawnxxy.eventreporter.fragments.PostsFragment">
@@ -12,16 +12,17 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/img_post_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/btn_fab_margins"
-            android:layout_marginRight="@dimen/btn_fab_margins"
-            android:src="@drawable/add"
-            app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:pressedTranslationZ="12dp" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|right"-->
+            <!--android:layout_marginBottom="@dimen/btn_fab_margins"-->
+            <!--android:layout_marginRight="@dimen/btn_fab_margins"-->
+            <!--android:src="@drawable/add"-->
+            <!--app:borderWidth="0dp"-->
+            <!--app:elevation="6dp"-->
+            <!--app:pressedTranslationZ="12dp" />-->
 
 </android.support.design.widget.CoordinatorLayout>

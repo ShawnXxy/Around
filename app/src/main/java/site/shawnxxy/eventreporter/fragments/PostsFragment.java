@@ -53,23 +53,22 @@ public class PostsFragment extends Fragment {
     }
 
     /**
-     *  Add Connections between Post Activity and EventReportActivity
+     *  Add Connections between Post Activity and MainActivity
      */
-    private FloatingActionButton mImageViewAdd;
+//    private FloatingActionButton fab;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_posts, container, false);
         View view = inflater.inflate(R.layout.fragment_posts, container, false);
-        mImageViewAdd = (FloatingActionButton) view.findViewById(R.id.img_post_add);
-        mImageViewAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent postIntent = new Intent(getActivity(), PostActivity.class);
-                startActivity(postIntent);
-            }
-        });
+//        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent postIntent = new Intent(getActivity(), PostActivity.class);
+//                startActivity(postIntent);
+//            }
+//        });
 
         // call recycler view in fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.post_recycler_view);

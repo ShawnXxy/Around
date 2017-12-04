@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,9 +204,6 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     isLike = true;
                     int adapterPosition = holder.getAdapterPosition();
                     notifyItemChanged(adapterPosition, ACTION_LIKE_BUTTON_CLICKED);
-//                    if (context instanceof MainActivity) {
-//                        ((MainActivity) context).showLikedSnackbar();
-//                    }
                 }
                 databaseReference.child("posts").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -224,6 +222,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+                Snackbar.make(v, "Liked!", Snackbar.LENGTH_LONG).show();
             }
         });
         // Comments Activity Intent
