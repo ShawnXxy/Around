@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
 
-
 	    /**
 	     *  Adding toolbar to main screen
 	     */
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 			    	// Do something
 				    return true;
 			    } else if (id == R.id.menu_logout) {
-			    	// Do something
+			    	session.logoutUser();
 				    return true;
 			    } else if (id == R.id.menu_about) {
 			    	// Do something

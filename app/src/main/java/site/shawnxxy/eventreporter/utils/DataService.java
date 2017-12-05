@@ -14,7 +14,7 @@ public class DataService {
      * Fake all the event data for now. We will refine this and connect
      * to our backend later.
      */
-    public static List<Post> getEventData() {
+    public static List<Post> getPostData() {
         List<Post> postData = new ArrayList<Post>();
         for (int i = 0; i < 10; ++i) {
             postData.add(

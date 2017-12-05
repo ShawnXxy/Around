@@ -130,6 +130,7 @@ public class CommentActivity extends AppCompatActivity {
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),"The comment is posted!", Toast.LENGTH_SHORT);
                     toast.show();
+
 //                    Intent myIntent = new Intent(CommentActivity.this, CommentActivity.class);
 //                    startActivity(myIntent);
                 }
