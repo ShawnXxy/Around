@@ -21,11 +21,12 @@
             android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:text="@string/new_posts"/>
-        <ImageView
+        <ImageButton
             android:id="@+id/img_post_report"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/send"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_menu_send"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp" />

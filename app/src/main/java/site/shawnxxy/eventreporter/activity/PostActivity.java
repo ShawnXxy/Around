@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText mEditTextLocation;
     private EditText mEditTextTitle;
     private EditText mEditTextContent;
-    private ImageView mImageViewSend;
+    private ImageButton mImageViewSend;
     private ImageView mImageViewCamera;
     private DatabaseReference database;
     // Add Firebase Authentification
@@ -74,7 +75,7 @@ public class PostActivity extends AppCompatActivity {
         mEditTextTitle = (EditText) findViewById(R.id.edit_text_post_title);
         mEditTextContent = (EditText) findViewById(R.id.edit_text_post_content);
         mImageViewCamera = (ImageView) findViewById(R.id.img_post_camera);
-        mImageViewSend = (ImageView) findViewById(R.id.img_post_report);
+        mImageViewSend = findViewById(R.id.img_post_report);
         database = FirebaseDatabase.getInstance().getReference();
         // Add click event to camera icon, trigger event to choose pictures
         mImageViewSend.setOnClickListener(new View.OnClickListener() {
