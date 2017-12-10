@@ -64,7 +64,7 @@
         android:textSize="16sp"
         android:background="@android:color/transparent"
         android:layout_gravity="center_horizontal"
-        android:hint="See something, say something" />
+        android:hint="Discovered something fun? Share it with nearby!" />
     <!--// Image preview box-->
     <ImageView
         android:id="@+id/img_post_picture_capture"

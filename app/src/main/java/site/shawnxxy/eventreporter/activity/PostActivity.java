@@ -79,8 +79,6 @@ public class PostActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         // Add click event to camera icon, trigger event to choose pictures
         mImageViewSend.setOnClickListener(new View.OnClickListener() {
-            final String title = mEditTextTitle.getText().toString();
-            final String content = mEditTextContent.getText().toString();
             @Override
             public void onClick(View v) {
                 String key = uploadPost(); // function defined in below
@@ -272,7 +270,4 @@ public class PostActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
-
-
-
 }
