@@ -24,6 +24,7 @@ import butterknife.BindView;
 import site.shawnxxy.eventreporter.R;
 import site.shawnxxy.eventreporter.fragments.ConnectionFragment;
 import site.shawnxxy.eventreporter.fragments.PostsFragment;
+import site.shawnxxy.eventreporter.fragments.TrendsFragment;
 import site.shawnxxy.eventreporter.utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,9 +110,13 @@ public class MainActivity extends AppCompatActivity {
 				    return true;
 			    } else if (id == R.id.menu_photos_nearby) {
 			    	// Do something
+				    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+				    startActivity(intent);
 				    return true;
 			    } else if (id == R.id.menu_rests_nearby) {
 			    	// Do something
+				    Intent intent = new Intent(MainActivity.this, RestaurantActivity.class);
+				    startActivity(intent);
 				    return true;
 			    } else if (id == R.id.menu_events_nearby) {
 			    	// Do something
@@ -168,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 		Adapter adapter = new Adapter(getSupportFragmentManager());
 		adapter.addFragment(new PostsFragment(), "Explore");
 		adapter.addFragment(new ConnectionFragment(), "Connections");
+		adapter.addFragment(new TrendsFragment(), "Trending");
 		viewPager.setAdapter(adapter);
 	}
 
