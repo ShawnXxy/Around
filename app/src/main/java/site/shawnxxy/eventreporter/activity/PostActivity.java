@@ -29,15 +29,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import site.shawnxxy.eventreporter.constructor.Post;
 import site.shawnxxy.eventreporter.utils.AlertDialogManager;
 import site.shawnxxy.eventreporter.utils.LocationTracker;
 import site.shawnxxy.eventreporter.R;
+import site.shawnxxy.eventreporter.utils.SessionManager;
 import site.shawnxxy.eventreporter.utils.Utils;
 
 public class PostActivity extends AppCompatActivity {
+
+    SessionManager session;
 
     /**
      *  To gather user information and push to firebase database, create and initialize UI widgets
@@ -70,6 +74,9 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
 
         mEditTextLocation = (EditText) findViewById(R.id.edit_text_post_location);
         mEditTextTitle = (EditText) findViewById(R.id.edit_text_post_title);
@@ -176,6 +183,10 @@ public class PostActivity extends AppCompatActivity {
         String title = mEditTextTitle.getText().toString();
         String location = mEditTextLocation.getText().toString();
         String description = mEditTextContent.getText().toString();
+
+	    HashMap<String, String> user = session.getUser();
+	    Utils.username = user.get(SessionManager.KEY_NAME).toString();
+
         if (location.equals("") || description.equals("") || title.equals("") || Utils.username == null) {
             alert.showAlertDialog(PostActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
             return null;
@@ -208,6 +219,7 @@ public class PostActivity extends AppCompatActivity {
                 }
             }
         });
+        Log.i("test2222", key);
         return key;
     }
     private void uploadImage(final String postId) {
