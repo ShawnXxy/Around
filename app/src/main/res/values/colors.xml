@@ -11,6 +11,8 @@
     <color name="fab_color_pressed">#006633</color>
     <color name="fab_color_shadow">#44000000</color>
 
+    <color name="tab_text">#003A21</color>
+
     <color name="btn_default_light_normal">#00000000</color>
     <color name="btn_default_light_pressed">#40ffffff</color>
     <color name="btn_send_normal">#02c754</color>

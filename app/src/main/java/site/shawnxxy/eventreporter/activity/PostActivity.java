@@ -191,6 +191,7 @@ public class PostActivity extends AppCompatActivity {
             alert.showAlertDialog(PostActivity.this, "Post failed..", "Title or Content cannot be empty!", false);
             return null;
         }
+        Log.i("username@test", Utils.username); // Test
         //create post instance
         Post post = new Post();
         post.setTitle(title);
@@ -219,7 +220,7 @@ public class PostActivity extends AppCompatActivity {
                 }
             }
         });
-        Log.i("test2222", key);
+        Log.i("test2222", key); // test
         return key;
     }
     private void uploadImage(final String postId) {

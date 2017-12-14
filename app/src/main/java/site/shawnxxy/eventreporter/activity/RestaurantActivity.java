@@ -118,7 +118,7 @@ public class RestaurantActivity extends AppCompatActivity {
 	private void setupViewPager(ViewPager viewPager) {
 		MainActivity.Adapter adapter = new MainActivity.Adapter(getSupportFragmentManager());
 		adapter.addFragment(new PostsFragment(), "Nearby");
-		adapter.addFragment(new ConnectionFragment(), "Recommendation");
+		adapter.addFragment(new ConnectionFragment(), "Suggestions");
 		adapter.addFragment(new TrendsFragment(), "Favorite");
 		viewPager.setAdapter(adapter);
 	}
