@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Around.iml" filepath="$PROJECT_DIR$/Around.iml" group="Around" />
+      <module fileurl="file://$PROJECT_DIR$/app/Around-app.iml" filepath="$PROJECT_DIR$/app/Around-app.iml" group="Around/app" />
+      <module fileurl="file://$PROJECT_DIR$/androidstudio-workspace-Around.iml" filepath="$PROJECT_DIR$/androidstudio-workspace-Around.iml" group="Around" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Around/app" />
     </modules>
   </component>
